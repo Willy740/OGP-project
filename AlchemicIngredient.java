@@ -1,16 +1,10 @@
-public class AlchemicIngredient {
-    private String name;
-
-    /**
-     * hier worden de uitzonderingen geimplementeerd
-     */
-    private static final String[] ExeptionWords = {"mixed","with"};
-
-    /**
-     * kijkt of de naam voldoet aand e voorwaarden voor de eenvoudige naam
-     * @param name
-     * @return
-     */
+/**
+ * @author Joran Naessens
+ * @author Maxim Samyn
+ * @author Lars Debrabander
+ * @param name
+ * @return
+ */
     public static boolean isValidSimpleName(String name) {
         if (name == null || name.length() == 0) {
             return false;
