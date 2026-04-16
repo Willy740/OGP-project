@@ -20,10 +20,12 @@ public class AlchemicIngredient {
      */
 
 
+    // zonder bijvoegsels
     public String getSimpleName() {
         return simpleName;
     }
 
+    // met bijvoegsels
     public String getIngredientName() {
         return IngredientName;
     }
