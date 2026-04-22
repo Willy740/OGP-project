@@ -9,5 +9,4 @@ public class IngredientType extends AlchemicIngredient {
     private String[] State = {"Liquid","Powder"};
 
 
-
 }
