@@ -13,7 +13,7 @@ public class AlchemicIngredient {
     private List<String> suffixes = new ArrayList<>();
     private String mix;
     private String mixName;
-
+    private final int Quantity;
     /**
      * getters en setters
      * @return
@@ -81,7 +81,7 @@ public class AlchemicIngredient {
      * @param simpleName
      * @param IngredientName
      */
-    public AlchemicIngredient(String simpleName, String IngredientName,String mix, String mixName) {
+    public AlchemicIngredient(String simpleName, String IngredientName,String mix, String mixName, int Quantity) {
         if (!isValidSimpleName(simpleName)) {
             throw new IllegalArgumentException("ongeldige eenvoudige naam: " + simpleName);
         }
@@ -98,6 +98,8 @@ public class AlchemicIngredient {
             throw new IllegalArgumentException("ongeldige mixnaam: " + mixName + "of ongeldige ingredienten in de mix: " + mix );
         }
         this.mixName = mixName;
+        // Quantity nominaal
+        this.Quantity = Quantity
     }
 
     /**
@@ -254,7 +256,7 @@ public class AlchemicIngredient {
             // GEVAL DAT ER GEEN SPECIALE NAAM IS
             // WAT MOET ER DAN GEBEUREN?
             // NU ZAL ER EEN EXCEPTION GEGOOID WORDEN ALS ER GEEN SPECIALE NAAM IS
-        }
+        //}
         if  (!isValidMixName(mixName,mix)) {
             throw new IllegalArgumentException("ongeldige mixnaam: " + mixName + "of ingredienten in de mix: " + mix);
         }
@@ -262,6 +264,18 @@ public class AlchemicIngredient {
         return fullName
     }
 
+    // Quantity moet nominaal worden geïmplementeerd
+
+    /**
+     * @pre quantity needs to be positive
+     * @param quantity
+     */
+    public void setQuantity(int quantity) {
+        this.Quantity=quantity
+    }
+    public int getQuantity() {
+        return Quantity;
+    }
 
 
 
