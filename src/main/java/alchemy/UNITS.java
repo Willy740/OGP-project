@@ -1,6 +1,6 @@
-package src.main.java.alchemy;
+package alchemy;
 
-public enum Units {
+public enum UNITS {
         DROP(1),
         SPOON(8),
         VIAL(40),
