@@ -2,7 +2,7 @@ package alchemy;
 
 import be.kuleuven.cs.som.annotate.*;
 
-public enum UNITS_LIQUIDS {
+public enum UNITS_LIQUIDS extends Unit{
         DROP(1),
         SPOON(8),
         VIAL(40),
@@ -13,7 +13,7 @@ public enum UNITS_LIQUIDS {
 }
 
 
-public enum UNITS_POWDER{
+public enum UNITS_POWDER extends Unit{
         PINCH(1),
         SPOON(6),
         SACHET(42),
