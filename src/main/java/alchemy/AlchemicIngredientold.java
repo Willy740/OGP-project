@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * @author Joran Naessens
  * @author Maxime Samyn
- * @author Lars Debrabander
  */
 public class AlchemicIngredientold {
 

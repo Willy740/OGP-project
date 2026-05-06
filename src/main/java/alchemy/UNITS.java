@@ -2,7 +2,7 @@ package alchemy;
 
 import be.kuleuven.cs.som.annotate.*;
 
-public enum UNITS {
+public enum UNITS_LIQUIDS {
         DROP(1),
         SPOON(8),
         VIAL(40),
@@ -10,18 +10,17 @@ public enum UNITS {
         JUG(840),
         BARREL(10080),
         STOREROOM(50400);
+}
 
-        private final int drops;
 
-        private UNITS(int drops){
-                this.drops = drops;
-        }
+public enum UNITS_POWDER{
+        PINCH(1),
+        SPOON(6),
+        SACHET(42),
+        BOX(252),
+        SACK(756),
+        CHEST(7560),
+        STOREROOM(37800);
 
-        public int toDrops(){
-                return this.drops;
-        }
 
-        public float toUnit(UNITS unit){
-                return ((float) unit.toDrops() /this.drops);
-        }
 }

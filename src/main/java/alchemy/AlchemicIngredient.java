@@ -8,7 +8,6 @@ import be.kuleuven.cs.som.annotate.*;
 /**
  * @author Joran Naessens
  * @author Maxime Samyn
- * @author Lars Debrabander
  */
 public class AlchemicIngredient{
 
