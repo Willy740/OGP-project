@@ -1,5 +1,7 @@
 package alchemy;
 
+import be.kuleuven.cs.som.annotate.*;
+
 public enum UNITS {
         DROP(1),
         SPOON(8),

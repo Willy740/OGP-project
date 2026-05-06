@@ -1,4 +1,6 @@
 package alchemy;
 
-public enum State {
+import be.kuleuven.cs.som.annotate.*;
+
+public enum STATE {
 }
