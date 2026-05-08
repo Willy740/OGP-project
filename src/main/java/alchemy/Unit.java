@@ -3,19 +3,12 @@ package alchemy;
 import be.kuleuven.cs.som.annotate.*;
 
 /**
- * @param unit
+ * dit is een interface omdat enums niet kunnen worden extend
  */
-public class Unit {
-    private final int unit;
+public interface Unit {
+    int getNominalValue();
 
-    private Unit(int unit){
-        this.unit = unit;
-    }
+    boolean isValidContainerUnit();
 
-    public int tounit(){
-        return this.unit;
-    }
-
-    public float toUnit(Unit unit){
-        return ((float) unit.tounit() /this.unit);
+    State getState();
 }
