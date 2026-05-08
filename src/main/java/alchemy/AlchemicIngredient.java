@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import be.kuleuven.cs.som.annotate.*;
 
+
+
+
+NOG DEFENSIEF MAKEN
+
+
+
+
+
 /**
  * @author Joran Naessens
  * @author Maxime Samyn
