@@ -9,26 +9,85 @@ import be.kuleuven.cs.som.annotate.*;
  * @author Maxime Samyn
  */
 public class AlchemicIngredient{
-    private IngredientType type;
+    /**
+     * RESTART START
+     *
+     *
+     * getType(): IngredientType                                        check       check means that it works if it works in IngredientType
+     * getSimpleName(): String                                          check
+     * getFullName(): String {Heated/Cooled prefix + bijvoegsels}       check
+     * getQuantity(): long                                              done        done means that is is implemented in this class
+     * getCurrentState(): State                                         done
+     * getTemperature(): long[] {[coldness, hotness]}                   check
+     * heat(amount: long) / cool(amount: long)                          check / check
+     */
 
+    private final IngredientType type;
+    private State currentState;
+    private Temperature temperature;
+    private final long quantity;
 
-    private State state;
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    private int quantity;
-
-    public void setQuantity(int quantity) {
+    // constructor
+    public Ingredient(IngredientType type, State currentState, Temperature temperature, long  quantity){
+        this.type = type;
+        this.currentState = currentState;
+        this.temperature = temperature;
         this.quantity = quantity;
     }
 
-    private int temperature;
+    // getters en setters
+    public IngredientType getType() {
+        return type;
+    }
 
-    public void setTemperature(int temperature) {
+    public State getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(State currentState) {
+        this.currentState = currentState;
+    }
+
+    public Temperature getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Temperature temperature) {
         this.temperature = temperature;
     }
+    Ingredient ingredient = new Ingredient(someType,someState,someTemp);
+    public String getSimpleName(){
+        return this.type.getSimpleName()
+    }
+    public String getFullName(){
+        return this.type.getFullName()
+    }
+
+    public long getQuantity(){
+        return this.quantity;
+    }
+
+    public State getState(){
+        return this.currentState;
+    }
+
+    public Temperature getTemperature(){
+        return this.temperature;
+    }
+
+    public void heat(long amount){
+        this.temperature.heat(amount);
+    }
+
+    public void cool(long amount){
+        this.temperature.cool(amount)
+    }
+
+
+    /**
+     * RESTART FINISH
+     */
+}
 
     /**********************************************************
      * CONSTRUCTORS
