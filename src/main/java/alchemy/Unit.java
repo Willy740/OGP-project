@@ -9,6 +9,6 @@ public interface Unit {
     int getNominalValue();
 
     boolean isValidContainerUnit();
-
+    // geen idee waarom State niet werkt
     State getState();
 }
