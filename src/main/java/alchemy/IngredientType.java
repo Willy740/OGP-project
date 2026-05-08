@@ -1,4 +1,5 @@
 package alchemy;
+import alchemy.State
 
 import be.kuleuven.cs.som.annotate.*;
 
@@ -7,12 +8,11 @@ import be.kuleuven.cs.som.annotate.*;
  * @author Maxime Samyn
  */
 public class IngredientType{
-
     /**********************************************************
      * CONSTRUCTORS
      **********************************************************/
 
-    public IngredientType(STATE defaultState){
+    public IngredientType(State defaultState){
         if(defaultState!=null){this.defaultState = defaultState;}
         else{throw new IllegalStateException("Default state is null");}
     }
@@ -21,7 +21,7 @@ public class IngredientType{
      * DEFAULT STATE
      **********************************************************/
 
-    private final STATE defaultState;
+    private final State defaultState;
 
     public STATE getDefaultState() {
         return defaultState;

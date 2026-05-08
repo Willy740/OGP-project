@@ -2,7 +2,7 @@ package alchemy;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import alchemy.IngredientType;
 import be.kuleuven.cs.som.annotate.*;
 
 /**
@@ -10,6 +10,7 @@ import be.kuleuven.cs.som.annotate.*;
  * @author Maxime Samyn
  */
 public class AlchemicIngredient{
+    private IngredientType type
 
     /**********************************************************
      * CONSTRUCTORS
