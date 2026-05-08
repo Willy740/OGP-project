@@ -2,7 +2,6 @@ package alchemy;
 
 import java.util.ArrayList;
 import java.util.List;
-import alchemy.IngredientType;
 import be.kuleuven.cs.som.annotate.*;
 
 /**
@@ -10,7 +9,26 @@ import be.kuleuven.cs.som.annotate.*;
  * @author Maxime Samyn
  */
 public class AlchemicIngredient{
-    private IngredientType type
+    private IngredientType type;
+
+
+    private State state;
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    private int quantity;
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    private int temperature;
+
+    public void setTemperature(int temperature) {
+        this.temperature = temperature;
+    }
 
     /**********************************************************
      * CONSTRUCTORS
@@ -26,12 +44,12 @@ public class AlchemicIngredient{
      * @param state
      *
      */
-    public AlchemicIngredient(IngredientType type, int quantity, String name, int temperature, STATE state){
+    public AlchemicIngredient(IngredientType type, int quantity, String name, int temperature, State state){
         setIngredientType(type);
         setQuantity(quantity);
         setSimpleName(name);
         setTemperature(temperature);
-        setSTATE(state);
+        setState(state);
     }
 
     public AlchemicIngredient(IngredientType type, int quantity, String name){
