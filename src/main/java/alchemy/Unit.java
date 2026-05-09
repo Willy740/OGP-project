@@ -6,9 +6,7 @@ import be.kuleuven.cs.som.annotate.*;
  * dit is een interface omdat enums niet kunnen worden extend
  */
 public interface Unit {
-    int getNominalValue();
-
+    double getNominalValue();
     boolean isValidContainerUnit();
-    // geen idee waarom State niet werkt
     State getState();
 }
