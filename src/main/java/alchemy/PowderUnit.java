@@ -1,15 +1,15 @@
 package alchemy;
 
 import be.kuleuven.cs.som.annotate.*;
-
+// alles tov spoons want dat hebben we dan nodig om de hoeveelheid van een mixture te bepalen
 public enum UNITS_POWDER extends Unit{
-    PINCH(1),
-    SPOON(6),
-    SACHET(42),
-    BOX(252),
-    SACK(756),
-    CHEST(7560),
-    STOREROOM(37800);
+    PINCH(1/6),
+    SPOON(1),
+    SACHET(7),
+    BOX(42),
+    SACK(126),
+    CHEST(1260),
+    STOREROOM(6300);
 
     private final int nominalValue;
 
