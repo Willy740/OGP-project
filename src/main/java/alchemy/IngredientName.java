@@ -107,19 +107,24 @@ public class IngredientName {
 //        return true;
 
 
+    @Override
     public String getFullName(Temperature temperature, Temperature defaultTemperature) {
-        if ((temperature == null) || (defaulttemperature == null)) {
+        if (temperature == null || defaultTemperature == null) {
             throw new IllegalArgumentException("Temperature cannot be null");
         }
-        if (temperature == defaulttemperature) {
-            return this.simpleName;
-        }
-        if (temperature < defaultTemperature){
+
+        boolean isHotter = temperature.getHotness() > defaultTemperature.getHotness()
+                || temperature.getColdness() < defaultTemperature.getColdness();
+        boolean isCooler = temperature.getColdness() > defaultTemperature.getColdness()
+                || temperature.getHotness() < defaultTemperature.getHotness();
+
+        if (isHotter) {
             return "Heated " + this.simpleName;
         }
-        if (temperature > defaultTemperature){
+        if (isCooler) {
             return "Cooled " + this.simpleName;
         }
+        return this.simpleName;
     }
 
 }
