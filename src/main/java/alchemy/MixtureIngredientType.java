@@ -17,6 +17,15 @@ public class MixtureIngredientType{
     /// quantity is sum ( rounding loss with Stateconversion)
     private State defaultState;
 
+    // constructor
+
+
+    public MixtureIngredientType(MixtureIngredientName name, long defaultTemperature, State defaultState) {
+        this.name = name;
+        this.defaultTemperature = getDefaultTemperature();
+        this.defaultState = getDefaultState();
+    }
+
     // helpmethod to calculate temperature and quantity (in MixtureAlchemicIngredient)
     public List<String> getIngredientsAsList() {
         simpleName = this.name.getSimpleName();      //// bv Garlic mixed with Imp Gas, Mercurial Acid and Water
@@ -30,8 +39,8 @@ public class MixtureIngredientType{
 
         return ingredientenLijst;
     }
-
-    public long getTemperature() {
+    // methode voor hulp contructor
+    public long getDefaultTemperature() {
         ingredients = getIngredientAsList();
         size = ingredients.size();
         long temp = 0;
@@ -39,8 +48,39 @@ public class MixtureIngredientType{
             temp += ingredient.getTemperature()
         }
         long temperature = temp/size;
-        return temperature;
+        return this.defaultTemperature = temperature
     }
 
-    public
+    // methode voor hulp contructor
+    public State getDefaultState() {
+        ingredientType type;                          // same problem as in MixtureAlchemicIngredient (getQuantity), de ingredient is een String = PROBLEEM
+        ingredients = getIngredientAsList();
+        long distance = getTemperature();
+        for (String ingredient : ingredients){
+            distance2 = ingredient.getType().DistanceToInterval();
+            if (distanct2 == distance){
+                if (ingredient.get.type().getDefaultState() == LIQUID){
+                    distance = distance2;
+                    type = ingredient.getType()
+                }
+            }
+            else if (distance2 < distance){
+                distance = distance2
+                type = ingredient.getType()
+            }
+        }
+        return this.defaultState = type.getDefaultState();
+    }
+
+    public boolean isMixture(){
+        return True
+    }
+
+    public String getSpecialname(){
+        return this.name.getSpecialName();
+    }
+
+    public void setSpecialname(String specialname){
+        this.name.setSpecialName(specialname);
+    }
 }
