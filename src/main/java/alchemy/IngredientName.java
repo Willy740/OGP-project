@@ -81,6 +81,7 @@ public class IngredientName {
                 }
             }
         }
+        return true;
     }
 
     public String getSimpleName() {
@@ -107,7 +108,6 @@ public class IngredientName {
 //        return true;
 
 
-    @Override
     public String getFullName(Temperature temperature, Temperature defaultTemperature) {
         if (temperature == null || defaultTemperature == null) {
             throw new IllegalArgumentException("Temperature cannot be null");

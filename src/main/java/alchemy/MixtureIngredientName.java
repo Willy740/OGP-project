@@ -1,39 +1,35 @@
 package alchemy
 
-public class MixtureIngredientName extends IngredientName{
+// MixtureIngredientName.java
+public class MixtureIngredientName extends IngredientName {
     private String specialName;
 
-    public MixtureIngredientName(String specialName) {
-        if  (specialName != null || specialName.equals("")){        // mag wel null zijn
+    // simpleName = "Beer mixed with Coke", specialName = "Mazout" of null
+    public MixtureIngredientName(String simpleName, String specialName) {
+        super(simpleName);
+        if (specialName != null && specialName.isEmpty()) {
             throw new IllegalArgumentException("specialName cannot be empty");
         }
         this.specialName = specialName;
     }
 
-    public boolean isSpecialName(){
-        return isValidSimpleName();
-    }
-    public String getSpecialName(){
+    public String getSpecialName() {
         return this.specialName;
     }
 
     public void setSpecialName(String specialName) {
         if (specialName != null && specialName.isEmpty()) {
-            throw new IllegalArgumentException("specialName cannot be empty (use null for no special name)");
+            throw new IllegalArgumentException("specialName cannot be empty");
         }
         this.specialName = specialName;
     }
 
     @Override
     public String getFullName(Temperature temperature, Temperature defaultTemperature) {
-        // special name exists
-        if ((this.specialName != null) && !(this.specialName.isEmpty())) {
-            return this.specialName + "(" + super.getFullName(temperature, defaultTemperature) + ")";
-        }
-        // special name doesn't exists
-        else {
-            super.getFullName(temperature, defaultTemperature)
+        if (this.specialName != null) {
+            return this.specialName + " (" + super.getFullName(temperature, defaultTemperature) + ")";
+        } else {
+            return super.getFullName(temperature, defaultTemperature);
         }
     }
-
 }
