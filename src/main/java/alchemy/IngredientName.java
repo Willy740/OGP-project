@@ -15,59 +15,68 @@ import be.kuleuven.cs.som.annotate.*;
 public class IngredientName {
     /**
      * RESTART START
-     *
-     *
-     * getSimpleName(): String
+     * <p>
+     * <p>
+     * getSimpleName(): String                                                          done
      * getFullName(temp: Temperature, defTemp: Temperature): String {«abstract»}
      * {prefix Heated/Cooled; suffix bijvoegsels (bv. Heated Water)}
-     * isValidName(n: String): boolean {«static»}
+     * isValidName(n: String): boolean {«static»}                                       done
      *
      *
      */
 
     private String simpleName;
-    private List<String> allowed = List.of(
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-            "'","(",")");
-    private List<String> disallowedWords = List.of("with","mixed");
 
+    private List<String> lowercase = List.of(
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+    private List<String> uppercase = List.of("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+    private List<String> symbols = List.of("'", "(", ")");
+
+    private List<String> disallowedWords = List.of("with", "mixed");
+    private List<String> characteristics = List.of("Heated", "Cooled")
     // constructor
 
     public IngredientName(String simpleName) {
-        if(simpleName == null || simpleName.length() == 0 || !isValidSimpleName(simpleName)) {
+        if (simpleName == null || simpleName.length() == 0 || !isValidSimpleName(simpleName)) {
             throw new IllegalArgumentException("Invalid simple name: " + simpleName);
         }
         this.simpleName = simpleName;
     }
 
-    String[] words = simpleName.split(" ");
 
     // checks if simpleName is valid
-    public boolean isValidSimpleName(String simpleName){
-        if (words == null || words.length == 0){
+    public boolean isValidSimpleName(String simpleName) {
+        String[] words = simpleName.split(" ");
+        if (words == null || words.length == 0) {
             return false;
         }
-        if (words.length == 1){
+        if (words.length == 1) {
             String word = words[0];
-            if (word.length() < 3){
+            if (word.length() < 3) {
                 return false;
             }
         }
-        if (words.length >= 2){
-            for (String word : words){
-                if (word.length() < 2){
+        if (words.length >= 2) {
+            for (String word : words) {
+                if (word.length() < 2) {
                     return false;
                 }
-                if (disallowedWords.contains(word)){
+                if (disallowedWords.contains(word)) {
                     return false;
                 }
-                for (int i = 0; i < word.length(); i++){
+                for (int i = 0; i < word.length(); i++) {
                     char letter = word.charAt(i);
-                    if (!allowed.contains(letter)){
-                        return false;
+                    if (i == 0) {
+                        if (!uppercase.contains(letter)) {
+                            return false;
+                        }
+                    }
+                    if (i != 0) {
+                        if (!allowed.contains(letter)) {
+                            return false;
+                        }
                     }
                 }
             }
@@ -77,8 +86,43 @@ public class IngredientName {
     public String getSimpleName() {
         return this.simpleName;
     }
+// voorlopig overbodig misschien later nog handig
+
+//    public boolean isValidFullName(String fullName){
+//        String[] words = fullName.split(" ");
+//        int lenght = words.length;
+//        lenght -= 1;
+//        String word1 = words[0];
+//        String lastWord = words[lenght];
+//        if (characteristics.contains(word1)){
+//            words.remove(word1);
+//        }
+//        if (characteristics.contains(lastWord)){
+//            words.remove(lastWord)
+//        }
+//        String simpleName = String.join(" ", words);
+//        if (!isValidSimpleName(simpleName)){
+//            return false;
+//        }
+//        return true;
 
 
+    public String getFullName(Temperature temperature, Temperature defaultTemperature) {
+        if ((temperature == null) || (defaulttemperature == null)) {
+            throw new IllegalArgumentException("Temperature cannot be null");
+        }
+        if (temperature == defaulttemperature) {
+            return this.simpleName;
+        }
+        if (temperature < defaultTemperature){
+            return "Heated " + this.simpleName;
+        }
+        if (temperature > defaultTemperature){
+            return "Cooled " + this.simpleName;
+        }
+    }
+
+}
 
     /**
      * RESTART FINISH
