@@ -10,11 +10,11 @@ public class MixtureAlchemicIngredient{
 
     private MixtureIngredientType type;
     private long temperature;
-    private int quantity;
+    private long quantity;
     private State currrentState;
 
     // constructor
-    public MixtureAlchemicIngredient(MixtureIngredientType type, long temperature, int quantity, State currrentState) {
+    public MixtureAlchemicIngredient(MixtureIngredientType type, long temperature, long quantity, State currrentState) {
         if (type == null) {
             throw new IllegalArgumentException("Mixture Ingredient type cannot be null");
         }
@@ -34,7 +34,9 @@ public class MixtureAlchemicIngredient{
     }
     // methods
     public String getFullName(){
-        return this.type.getFullName();
+        String fullName = this.type.getFullName();
+        String specialName = getSpecialName();
+        return specialName + "("+ fullName + ")";
     }
 
     public String getSpecialName(){
@@ -53,8 +55,13 @@ public class MixtureAlchemicIngredient{
         return this.type.getDefaultState();
     }
 
-    public int getQuantity() {
-        return this.quantity;
+    public long getQuantity() {
+        List<String> ingredients = this.type.getIngredientsAsList();                //
+        long quantity = 0;                                                          //
+        for (String ingredient : ingredients){                                      // ZAL NIET WERKEN MAAR WEET NIET
+            quantity += ingredient.getQuantity();                                   // HOE OPLOSSEN
+        }                                                                           //
+        return quantity;                                                            //
     }
 
 }
