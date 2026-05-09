@@ -46,13 +46,13 @@ public class AlchemicIngredient{
     public AlchemicIngredient(IngredientType type, State currentState,
                               Temperature temperature, long quantity) {
         if (type == null)
-            throw new IllegalArgumentException("Type mag niet null zijn.");
+            throw new IllegalArgumentException("Ingredient type cannot be null");
         if (currentState == null)
-            throw new IllegalArgumentException("CurrentState mag niet null zijn.");
+            throw new IllegalArgumentException("CurrentState cannot be null");
         if (temperature == null)
-            throw new IllegalArgumentException("Temperature mag niet null zijn.");
-        if (quantity <= 0)
-            throw new IllegalArgumentException("Quantity moet groter dan 0 zijn.");
+            throw new IllegalArgumentException("Temperature mag niet null zijn.");   //// ben ik niet zeker
+        if (quantity < 0)
+            throw new IllegalArgumentException("Quantity cannot be negative");
 
         this.type = type;
         this.currentState = currentState;
