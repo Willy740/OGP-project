@@ -36,60 +36,88 @@ public class AlchemicIngredient{
     private Temperature temperature;
     private final long quantity;
 
-    // constructor
-    public Ingredient(IngredientType type, State currentState, Temperature temperature, long  quantity){
+    /**
+     * @param type           het ingrediënttype, mag niet null zijn
+     * @param currentState   de begintoestand, mag niet null zijn
+     * @param temperature    de begintemperatuur, mag niet null zijn
+     * @param quantity       de hoeveelheid, moet groter dan 0 zijn
+     * @throws IllegalArgumentException als een parameter ongeldig is
+     */
+    public AlchemicIngredient(IngredientType type, State currentState,
+                              Temperature temperature, long quantity) {
+        if (type == null)
+            throw new IllegalArgumentException("Type mag niet null zijn.");
+        if (currentState == null)
+            throw new IllegalArgumentException("CurrentState mag niet null zijn.");
+        if (temperature == null)
+            throw new IllegalArgumentException("Temperature mag niet null zijn.");
+        if (quantity <= 0)
+            throw new IllegalArgumentException("Quantity moet groter dan 0 zijn.");
+
         this.type = type;
         this.currentState = currentState;
         this.temperature = temperature;
         this.quantity = quantity;
     }
 
-    // getters en setters
     public IngredientType getType() {
-        return type;
+        return this.type;
+    }
+
+    public String getSimpleName() {
+        return this.type.getSimpleName();
+    }
+
+    public String getFullName() {
+        return this.type.getFullName();
+    }
+
+    public long getQuantity() {
+        return this.quantity;
     }
 
     public State getCurrentState() {
-        return currentState;
+        return this.currentState;
     }
 
+    /**
+     * @param currentState
+     */
     public void setCurrentState(State currentState) {
+        if (currentState == null)
+            throw new IllegalArgumentException("CurrentState mag niet null zijn.");
         this.currentState = currentState;
     }
 
     public Temperature getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(Temperature temperature) {
-        this.temperature = temperature;
-    }
-    Ingredient ingredient = new Ingredient(someType,someState,someTemp);
-    public String getSimpleName(){
-        return this.type.getSimpleName()
-    }
-    public String getFullName(){
-        return this.type.getFullName()
-    }
-
-    public long getQuantity(){
-        return this.quantity;
-    }
-
-    public State getState(){
-        return this.currentState;
-    }
-
-    public Temperature getTemperature(){
         return this.temperature;
     }
 
-    public void heat(long amount){
+    /**
+     * @param temperature
+     */
+    public void setTemperature(Temperature temperature) {
+        if (temperature == null)
+            throw new IllegalArgumentException("Temperature mag niet null zijn.");
+        this.temperature = temperature;
+    }
+
+    /**
+     * @param amount
+     */
+    public void heat(long amount) {
+        if (amount <= 0)
+            throw new IllegalArgumentException("Amount moet groter dan 0 zijn.");
         this.temperature.heat(amount);
     }
 
-    public void cool(long amount){
-        this.temperature.cool(amount)
+    /**
+     * @param amount
+     */
+    public void cool(long amount) {
+        if (amount <= 0)
+            throw new IllegalArgumentException("Amount moet groter dan 0 zijn.");
+        this.temperature.cool(amount);
     }
 
 
