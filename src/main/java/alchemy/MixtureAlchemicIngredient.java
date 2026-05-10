@@ -1,16 +1,17 @@
-package alchemy
+package alchemy;
 
+import java.util.List
 import be.kuleuven.cs.som.annotate.*;
 
 public class MixtureAlchemicIngredient extends AlchemicIngredient{
     // constructor
-    public MixtureAlchemicIngredient(MixtureIngredientType type, long temperature, long quantity, State currrentState) {
+    public MixtureAlchemicIngredient(MixtureIngredientType type, Temperature temperature, long quantity, State currrentState) {
         super(type, currentState, temperature,quantity);
     }
     @Override
     public String getFullName(){
         MixtureIngredientType mixtureType = (MixtureIngredientType) getType();
-        return mixtureType.getSpecialName() + "(" + super.getFullName() + ")"
+        return mixtureType.getSpecialName() + "(" + super.getFullName() + ")";
     }
 
     public String getSpecialName(){
@@ -19,14 +20,6 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
 
     public void setSpecialName(String specialName){
         ((MixtureIngredientType) getType()).setSpecialName(specialName);
-    }
-
-    public long  getTemperature() {
-        return this.type.getDefaultTemperature();
-    }
-
-    public State getCurrrentState() {
-        return this.type.getDefaultState();
     }
 
     /// quantity is sum ( rounding loss with Stateconversion)

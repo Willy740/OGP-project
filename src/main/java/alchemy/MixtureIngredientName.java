@@ -1,4 +1,4 @@
-package alchemy
+package alchemy;
 
 import be.kuleuven.cs.som.annotate.*;
 
@@ -15,14 +15,14 @@ public class MixtureIngredientName extends IngredientName {
         this.specialName = specialName;
     }
 
-    @override
+    @Override
     public boolean isValidSimpleName(String simpleName){
         if (simpleName == null || simpleName.isEmpty()) {
             return false;
         }
         String[] parts = simpleName.split(" mixed with | and |, ");
         for (String part : parts) {
-            if(!super.isValidSimpleName){
+            if(!super.isValidSimpleName(part)){
                 return false;
             }
         }

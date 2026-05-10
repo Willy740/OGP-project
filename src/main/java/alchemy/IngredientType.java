@@ -28,7 +28,7 @@ public class IngredientType{
     }
 
     public String getFullName(){
-        return this.name.getFullName(this.defaultTemperature, this.defaultTemperature)
+        return this.name.getFullName(this.defaultTemperature, this.defaultTemperature);
     }
 
     public State getDefaultState(){
@@ -44,10 +44,10 @@ public class IngredientType{
     }
 
     // helpmethod for later classes
-    public long DistanceToInterval(){
-        long defaulttemp = getDefaultTemperature().getHotness;
+    public long distanceToInterval(){
+        long defaulttemp = getDefaultTemperature().getHotness();
         if ((defaulttemp <= 20) && (defaulttemp >= 0)){
-            return distance;
+            return 0;
         }
         long distance = min(defaulttemp - 20, defaulttemp);
         return distance;

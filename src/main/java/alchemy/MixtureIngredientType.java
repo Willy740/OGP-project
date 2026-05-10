@@ -1,4 +1,4 @@
-package alchemy
+package alchemy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +23,7 @@ public class MixtureIngredientType extends IngredientType{
 
     // constructor
     public MixtureIngredientType(MixtureIngredientName name, List<AlchemicIngredient> ingredients) {
-        super(name, calculateDefaultState(ingredients), calculateDefaultTemperature(ingredients))
+        super(name, calculateDefaultState(ingredients), calculateDefaultTemperature(ingredients));
         this.ingredients = ingredients;
     }
 
@@ -36,10 +36,10 @@ public class MixtureIngredientType extends IngredientType{
         long totalColdness = 0;
         for (AlchemicIngredient ingredient : ingredients){
             totalHotness += ingredient.getTemperature().getHotness();
-            totalColdness += ingredient.getTemperature().getColdness()
+            totalColdness += ingredient.getTemperature().getColdness();
         }
-        newTemperature = new Temperature(totalColdness/ingredients.size(), totalHotness/ingredients.size());
-        return newTemperature
+        Temperature newTemperature = new Temperature(totalColdness/ingredients.size(), totalHotness/ingredients.size());
+        return newTemperature;
     }
 
     private static State calculateDefaultState(List<AlchemicIngredient> ingredients) {
@@ -60,11 +60,11 @@ public class MixtureIngredientType extends IngredientType{
         return True
     }
 
-    public String getSpecialname(){
+    public String getSpecialName(){
         return ((MixtureIngredientName) getName()).getSpecialName();
     }
 
-    public void setSpecialname(String specialname){
+    public void setSpecialName(String specialName){
         ((MixtureIngredientName) getName()).setSpecialName(specialName);
     }
 }
