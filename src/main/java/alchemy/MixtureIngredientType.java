@@ -3,84 +3,68 @@ package alchemy
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import be.kuleuven.cs.som.annotate.*;
 
 /**
- * isMixture(): boolean {true}
- * getSpecialName(): String
- * setSpecialName(n: String) {delegerend naar MixtureIngredientName}
- * isMixture(): boolean {true — delegeert naar MixtureIngredientName}
+ * a class representing the type of a mixture alchemic ingredient
+ * consisting of multiple combinded ingredient types with calculated
+ * default temperature and state
+ *
+ * @invar the name of this mixture ingredient type can't be null
+ *        | this.name != null
+ * @invar the default temperature of a mixture ingredient can't be null
+ *        | getDefaultTemperature() != null
+ * @invar the default state of a mixture ingredient con't be null
+ *        | getDefaultState != null
  */
-public class MixtureIngredientType{
-    private MixtureIngredientName name:
-    ///  temperature is weighted average of ingredients
-    private long defaultTemperature;
-    /// quantity is sum ( rounding loss with Stateconversion)
-    private State defaultState;
+
+public class MixtureIngredientType extends IngredientType{
+    private final List<AlchemicIngredient> ingredients;
 
     // constructor
-
-
-    public MixtureIngredientType(MixtureIngredientName name, long defaultTemperature, State defaultState) {
-        this.name = name;
-        this.defaultTemperature = getDefaultTemperature();
-        this.defaultState = getDefaultState();
+    public MixtureIngredientType(MixtureIngredientName name, List<AlchemicIngredient> ingredients) {
+        super(name, calculateDefaultState(ingredients), calculateDefaultTemperature(ingredients))
+        this.ingredients = ingredients;
     }
 
-    // helpmethod to calculate temperature and quantity (in MixtureAlchemicIngredient)
-    public List<String> getIngredientsAsList() {
-        simpleName = this.name.getSimpleName();      //// bv Garlic mixed with Imp Gas, Mercurial Acid and Water
-
-        // De regex splitst op: " mixed with " OF ", " OF " and "
-        String regex = " mixed with |, | and ";
-        String[] splitArray = simpleName.split(regex);
-
-        // We zetten de array hier om naar een List<String>
-        List<String> ingredientenLijst = Arrays.asList(splitArray);
-
-        return ingredientenLijst;
+    public List<AlchemicIngredient> getIngredientsAsList() {
+        return this.ingredients;
     }
     // methode voor hulp contructor
-    public long getDefaultTemperature() {
-        ingredients = getIngredientAsList();
-        size = ingredients.size();
-        long temp = 0;
-        for (String ingredient : ingredients) {
-            temp += ingredient.getTemperature()
+    private static Temperature calculateDefaultTemperature(List<AlchemicIngredient> ingredients) {
+        long totalHotness = 0;
+        long totalColdness = 0;
+        for (AlchemicIngredient ingredient : ingredients){
+            totalHotness += ingredient.getTemperature().getHotness();
+            totalColdness += ingredient.getTemperature().getColdness()
         }
-        long temperature = temp/size;
-        return this.defaultTemperature = temperature
+        newTemperature = new Temperature(totalColdness/ingredients.size(), totalHotness/ingredients.size());
+        return newTemperature
     }
 
-    // methode voor hulp contructor
-    public State getDefaultState() {
-        ingredientType type;                          // same problem as in MixtureAlchemicIngredient (getQuantity), de ingredient is een String = PROBLEEM
-        ingredients = getIngredientAsList();
-        long distance = getTemperature();
-        for (String ingredient : ingredients){
-            distance2 = ingredient.getType().DistanceToInterval();
-            if (distanct2 == distance){
-                if (ingredient.get.type().getDefaultState() == LIQUID){
-                    distance = distance2;
-                    type = ingredient.getType()
-                }
-            }
-            else if (distance2 < distance){
-                distance = distance2
-                type = ingredient.getType()
+    private static State calculateDefaultState(List<AlchemicIngredient> ingredients) {
+        long minDistance = Long.MAX_VALUE;
+        State result = State.LIQUID;
+        for (AlchemicIngredient ingredient : ingredients) {
+            long d = ingredient.getType().distanceToInterval();
+            if ((d < minDistance) || ((d == minDistance) && (ingredient.getType().getDefaultState() == State.LIQUID))) {
+                minDistance = d;
+                result = ingredient.getType().getDefaultState();
             }
         }
-        return this.defaultState = type.getDefaultState();
+        return result;
     }
 
+    @Override
     public boolean isMixture(){
         return True
     }
 
     public String getSpecialname(){
-        return this.name.getSpecialName();
+        return ((MixtureIngredientName) getName()).getSpecialName();
     }
 
     public void setSpecialname(String specialname){
-        this.name.setSpecialName(specialname);
+        ((MixtureIngredientName) getName()).setSpecialName(specialName);
     }
 }

@@ -1,7 +1,5 @@
 package alchemy;
 
-import java.util.ArrayList;
-import java.util.List;
 import be.kuleuven.cs.som.annotate.*;
 
 /**
@@ -13,8 +11,8 @@ import be.kuleuven.cs.som.annotate.*;
  *        | getCurrentState() != null
  * @invar the temperature of this ingredient can't be null
  *        | getTemperature() != null
- * @invar the quantity of this ingredient can't be null
- *        | getQuantity() != null
+ * @invar the quantity of this ingredient can't be negatif
+ *        | getQuantity() >= 0
  *
  * @author Joran Naessens
  * @author Maxime Samyn

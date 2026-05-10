@@ -3,8 +3,8 @@ package alchemy;
 import be.kuleuven.cs.som.annotate.*;
 // alles tov spoons want dat hebben we dan nodig om de hoeveelheid van een mixture te bepalen
 
-public enum LiquidUnit implements Unit{
-        DROP(1.0/8),
+public enum LiquidUnit implements Unit {
+        DROP(1.0 / 8),
         SPOON(1),
         VIAL(5),
         BOTTLE(15),
@@ -32,4 +32,5 @@ public enum LiquidUnit implements Unit{
         @Override
         public State getState() {
                 return State.LIQUID;
+        }
 }

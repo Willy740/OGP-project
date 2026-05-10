@@ -2,7 +2,7 @@ package alchemy;
 
 import be.kuleuven.cs.som.annotate.*;
 // alles tov spoons want dat hebben we dan nodig om de hoeveelheid van een mixture te bepalen
-public enum UNITS_POWDER implements Unit{
+public enum PowderUnit implements Unit{
     PINCH(1.0/6),
     SPOON(1),
     SACHET(7),
@@ -31,4 +31,5 @@ public enum UNITS_POWDER implements Unit{
     @Override
     public State getState() {
         return State.POWDER;
+    }
 }

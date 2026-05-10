@@ -1,5 +1,7 @@
 package alchemy
 
+import be.kuleuven.cs.som.annotate.*;
+
 // MixtureIngredientName.java
 public class MixtureIngredientName extends IngredientName {
     private String specialName;
@@ -11,6 +13,20 @@ public class MixtureIngredientName extends IngredientName {
             throw new IllegalArgumentException("specialName cannot be empty");
         }
         this.specialName = specialName;
+    }
+
+    @override
+    public boolean isValidSimpleName(String simpleName){
+        if (simpleName == null || simpleName.isEmpty()) {
+            return false;
+        }
+        String[] parts = simpleName.split(" mixed with | and |, ");
+        for (String part : parts) {
+            if(!super.isValidSimpleName){
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getSpecialName() {

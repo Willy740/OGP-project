@@ -1,67 +1,42 @@
 package alchemy
 
-public class MixtureAlchemicIngredient{
-    /**
-     * getFullName(): String {«override»}                               check
-     * {met specialName: "specialName (Heated/Cooled simpleName)"}
-     * getSpecialName(): String                                         check
-     * setSpecialName(n: String) {defensief}                            check
-     */
+import be.kuleuven.cs.som.annotate.*;
 
-    private MixtureIngredientType type;
-    private long temperature;
-    private long quantity;
-    private State currrentState;
-
+public class MixtureAlchemicIngredient extends AlchemicIngredient{
     // constructor
     public MixtureAlchemicIngredient(MixtureIngredientType type, long temperature, long quantity, State currrentState) {
-        if (type == null) {
-            throw new IllegalArgumentException("Mixture Ingredient type cannot be null");
-        }
-        if (temperature < 0) {
-            throw new IllegalArgumentException("Mixture Ingredient temperature cannot be negative");
-        }
-        if (quantity < 0) {
-            throw new IllegalArgumentException("Mixture Ingredient quantity cannot be negative");
-        }
-        if (currrentState == null){
-            throw new IllegalArgumentException("Mixture Ingredient currrent state cannot be null");
-        }
-        this.type = type;
-        this.temperature = temperature;
-        this.quantity = quantity;
-        this.currrentState = currrentState;
+        super(type, currentState, temperature,quantity);
     }
-    // methods
+    @Override
     public String getFullName(){
-        String fullName = this.type.getFullName();
-        String specialName = getSpecialName();
-        return specialName + "("+ fullName + ")";
+        MixtureIngredientType mixtureType = (MixtureIngredientType) getType();
+        return mixtureType.getSpecialName() + "(" + super.getFullName() + ")"
     }
 
     public String getSpecialName(){
-        return this.type.getSpecialName();
+        return ((MixtureIngredientType) getType()).getSpecialName();
     }
 
     public void setSpecialName(String specialName){
-        this.type.setSpecialName(specialName);
+        ((MixtureIngredientType) getType()).setSpecialName(specialName);
     }
 
     public long  getTemperature() {
-        return this.type.getTemperature();
+        return this.type.getDefaultTemperature();
     }
 
     public State getCurrrentState() {
         return this.type.getDefaultState();
     }
 
+    /// quantity is sum ( rounding loss with Stateconversion)
     public long getQuantity() {
-        List<String> ingredients = this.type.getIngredientsAsList();                //
-        long quantity = 0;                                                          //
-        for (String ingredient : ingredients){                                      // ZAL NIET WERKEN MAAR WEET NIET
-            quantity += ingredient.getQuantity();                                   // HOE OPLOSSEN
-        }                                                                           //
-        return quantity;                                                            //
+        List<AlchemicIngredient> ingredients = ((MixtureIngredientType) getType()).getIngredientsAsList();
+        long quantity = 0;
+        for (AlchemicIngredient ingredient : ingredients){
+            quantity += ingredient.getQuantity();
+        }
+        return quantity;
     }
 
 }

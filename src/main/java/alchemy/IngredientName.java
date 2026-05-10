@@ -67,7 +67,7 @@ public class IngredientName {
                     return false;
                 }
                 for (int i = 0; i < word.length(); i++) {
-                    char letter = word.charAt(i);
+                    String letter = String.valueOf(word.charAt(i));
                     if (i == 0) {
                         if (!uppercase.contains(letter)) {
                             return false;
@@ -113,10 +113,8 @@ public class IngredientName {
             throw new IllegalArgumentException("Temperature cannot be null");
         }
 
-        boolean isHotter = temperature.getHotness() > defaultTemperature.getHotness()
-                || temperature.getColdness() < defaultTemperature.getColdness();
-        boolean isCooler = temperature.getColdness() > defaultTemperature.getColdness()
-                || temperature.getHotness() < defaultTemperature.getHotness();
+        boolean isHotter = ((temperature.getHotness() > defaultTemperature.getHotness()) || (temperature.getColdness() < defaultTemperature.getColdness()));
+        boolean isCooler = ((temperature.getColdness() > defaultTemperature.getColdness()) || (temperature.getHotness() < defaultTemperature.getHotness()));
 
         if (isHotter) {
             return "Heated " + this.simpleName;
