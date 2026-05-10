@@ -4,45 +4,80 @@ import java.util.ArrayList;
 import java.util.List;
 import be.kuleuven.cs.som.annotate.*;
 
-
-
-
-NOG DEFENSIEF MAKEN
-
-
-
-
-
 /**
+ * a class representing an alchemic ingredient with a type, state, temperature and quantity
+ *
+ * @invar the type of this ingredient can't be null
+ *        | getType() != null
+ * @invar the current state of this ingredient can't be null
+ *        | getCurrentState() != null
+ * @invar the temperature of this ingredient can't be null
+ *        | getTemperature() != null
+ * @invar the quantity of this ingredient can't be null
+ *        | getQuantity() != null
+ *
  * @author Joran Naessens
  * @author Maxime Samyn
+ *
  */
 public class AlchemicIngredient{
     /**
-     * RESTART START
-     *
-     *
-     * getType(): IngredientType                                        check       check means that it works if it works in IngredientType
-     * getSimpleName(): String                                          check
-     * getFullName(): String {Heated/Cooled prefix + bijvoegsels}       check
-     * getQuantity(): long                                              done        done means that is is implemented in this class
-     * getCurrentState(): State                                         done
-     * getTemperature(): long[] {[coldness, hotness]}                   check
-     * heat(amount: long) / cool(amount: long)                          check / check
+     * variable referencing the type of an ingredient, set at construction and can never change
      */
-
     private final IngredientType type;
-    private State currentState;
-    private Temperature temperature;
-    private final long quantity;
 
     /**
-     * @param type           het ingrediënttype, mag niet null zijn
-     * @param currentState   de begintoestand, mag niet null zijn
-     * @param temperature    de begintemperatuur, mag niet null zijn
-     * @param quantity       de hoeveelheid, moet groter dan 0 zijn
-     * @throws IllegalArgumentException als een parameter ongeldig is
+     * a variabale referencing the state of an ingredient
      */
+    private State currentState;
+
+    /**
+     * a variable referencing the temperature of an ingredient
+     */
+    private Temperature temperature;
+
+    /**
+     * a variabel referencing the quantity of an ingredient, set at construction and can never change
+     */
+    private final long quantity;
+
+    /**********************************************************
+     * constructor
+     *********************************************************/
+
+    /**
+     * @param type
+     *        the ingredient type of this new ingredient
+     * @param currentState
+     *        the state of this new ingredient
+     * @param temperature
+     *        the temperature of this new ingredient
+     * @param quantity
+     *        the quantity of this new ingredient
+     *
+     * @post the type of this ingredient is set to the given type
+     *       | new.getType() == type
+     * @post the current state of this ingredient is set to the given state
+     *       | new.getCurrentState == currentState
+     * @post the temperature of this ingredient is set to the given temperature
+     *       | new.getTempertature() == temperature
+     * @post the quantity of this ingredient is set to the given quantity
+     *       | new.getQuantity == quantity
+     *
+     * @throws IllegalArgumentException
+     *         the given type is null
+     *         | type == null
+     * @throws IllegalArgumentException
+     *         the given state is null
+     *         | currentState == null
+     * @throws IllegalArgumentException
+     *         the given temperature is null
+     *         | temperature == null
+     * @throws IllegalArgumentException
+     *         the given quantity is negatif
+     *         | quantity < 0
+     */
+    @raw
     public AlchemicIngredient(IngredientType type, State currentState,
                               Temperature temperature, long quantity) {
         if (type == null)
@@ -60,28 +95,73 @@ public class AlchemicIngredient{
         this.quantity = quantity;
     }
 
+    /**********************************************************
+     * getters
+     *********************************************************/
+
+    /**
+     * return the ingredient type of this ingredient
+     */
     public IngredientType getType() {
         return this.type;
     }
 
+    /**
+     * return the simple name of this ingredient
+     *
+     * @return the simple name of this ingredient
+     *         | result.equals(getType().getSimpleName())
+     */
     public String getSimpleName() {
         return this.type.getSimpleName();
     }
 
+    /**
+     * return the full name of this ingredient
+     *
+     * @return the full name of this ingredien
+     *         | result.equals(getType().getFullName())
+     */
     public String getFullName() {
         return this.type.getFullName();
     }
 
+    /**
+     * return the quantity of this ingredient
+     *
+     * @return the quantity of this ingredient
+     *         | result.equals(getType().getQuantity())
+     */
     public long getQuantity() {
         return this.quantity;
     }
 
+    /**
+     * return the state of this ingredient
+     */
     public State getCurrentState() {
         return this.currentState;
     }
 
     /**
+     * return de temperature of this ingredient
+     */
+    public Temperature getTemperature() {
+        return this.temperature;
+    }
+
+    /**
+     * set the state of this ingredient to the given state
+     *
      * @param currentState
+     *        the new state of this ingredient
+     *
+     * @post the current state of this ingredient is set to the given state
+     *       | new.getCurrentState() == currentState
+     *
+     * @throws IllegalArgumentException
+     *         the given state is null
+     *         | currentState == null
      */
     public void setCurrentState(State currentState) {
         if (currentState == null)
@@ -89,12 +169,19 @@ public class AlchemicIngredient{
         this.currentState = currentState;
     }
 
-    public Temperature getTemperature() {
-        return this.temperature;
-    }
 
     /**
+     * set temperature of this ingredietn to the given temperature
+     *
      * @param temperature
+     *        the new temperature of this ingredient
+     *
+     * @post the temperature of this ingredient is set to the given temperature
+     *       | new.getTemperature() == temperature
+     *
+     * @throws IllegalArgumentException
+     *         the given temperature is null
+     *         | temperature == null
      */
     public void setTemperature(Temperature temperature) {
         if (temperature == null)
@@ -103,7 +190,17 @@ public class AlchemicIngredient{
     }
 
     /**
+     * heat this ingredient by de given amount
+     *
      * @param amount
+     *        the amount which to heat this ingredient
+     *
+     * @effect the temperature of this ingredient is heated by the given amount
+     *         | getTemperature.heat(amout)
+     *
+     * @throws IllegalArgumentException
+     *         the given amoun can't be negative
+     *         | amount <= 0
      */
     public void heat(long amount) {
         if (amount <= 0)
@@ -113,6 +210,14 @@ public class AlchemicIngredient{
 
     /**
      * @param amount
+     *        the amount which to cool this ingredient
+     *
+     * @effect the temperature of this ingredient is cooled by the given amount
+     *         | getTemperature.cool(amount)
+     *
+     * throws IllegalArgumentException
+     *        the given amoun can't be negative
+     *        | amount <= 0
      */
     public void cool(long amount) {
         if (amount <= 0)
