@@ -33,7 +33,7 @@ public class MixtureIngredientType extends IngredientType{
     // methode voor hulp contructor
     private static Temperature calculateDefaultTemperature(List<AlchemicIngredient> ingredients) {
         if ((ingredients.isEmpty()) || (ingredients == null)) {
-            return new Temperature(0,0)
+            return new Temperature(0,0);
         }
         long totalHotness = 0;
         long totalColdness = 0;
@@ -46,6 +46,9 @@ public class MixtureIngredientType extends IngredientType{
     }
 
     private static State calculateDefaultState(List<AlchemicIngredient> ingredients) {
+        if ((ingredients.isEmpty()) || (ingredients == null)) {
+            return State.LIQUID;
+        }
         long minDistance = Long.MAX_VALUE;
         State result = State.LIQUID;
         for (AlchemicIngredient ingredient : ingredients) {
@@ -60,7 +63,7 @@ public class MixtureIngredientType extends IngredientType{
 
     @Override
     public boolean isMixture(){
-        return true
+        return true;
     }
 
     public String getSpecialName(){

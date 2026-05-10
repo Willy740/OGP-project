@@ -6,11 +6,14 @@ import be.kuleuven.cs.som.annotate.*;
 public class MixtureAlchemicIngredient extends AlchemicIngredient{
     // constructor
     public MixtureAlchemicIngredient(MixtureIngredientType type, Temperature temperature, long quantity, State currentState) {
-        super(type, currentState, temperature,quantity);
+        super(type, currentState, temperature, quantity);
     }
     @Override
     public String getFullName(){
         MixtureIngredientType mixtureType = (MixtureIngredientType) getType();
+        if (mixtureType.getSpecialName == null){
+            return super.getFullName
+        }
         return mixtureType.getSpecialName() + "(" + super.getFullName() + ")";
     }
 
