@@ -5,7 +5,7 @@ import be.kuleuven.cs.som.annotate.*;
 
 public class MixtureAlchemicIngredient extends AlchemicIngredient{
     // constructor
-    public MixtureAlchemicIngredient(MixtureIngredientType type, Temperature temperature, long quantity, State currrentState) {
+    public MixtureAlchemicIngredient(MixtureIngredientType type, Temperature temperature, long quantity, State currentState) {
         super(type, currentState, temperature,quantity);
     }
     @Override
