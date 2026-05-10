@@ -1,6 +1,6 @@
 package alchemy;
 
-import java.util.List
+import java.util.List;
 import be.kuleuven.cs.som.annotate.*;
 
 public class MixtureAlchemicIngredient extends AlchemicIngredient{

@@ -57,7 +57,7 @@ public class MixtureIngredientType extends IngredientType{
 
     @Override
     public boolean isMixture(){
-        return True
+        return true
     }
 
     public String getSpecialName(){
