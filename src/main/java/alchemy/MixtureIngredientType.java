@@ -32,6 +32,9 @@ public class MixtureIngredientType extends IngredientType{
     }
     // methode voor hulp contructor
     private static Temperature calculateDefaultTemperature(List<AlchemicIngredient> ingredients) {
+        if ((ingredients.isEmpty()) || (ingredients == null)) {
+            return new Temperature(0,0)
+        }
         long totalHotness = 0;
         long totalColdness = 0;
         for (AlchemicIngredient ingredient : ingredients){

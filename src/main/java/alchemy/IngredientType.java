@@ -15,9 +15,23 @@ public class IngredientType{
 
     // constructor
     public IngredientType(IngredientName name, State defaultState, Temperature defaultTemperature) {
-        this.name = name;
-        this.defaultState = defaultState;
-        this.defaultTemperature = defaultTemperature;
+        if (name == null) {
+            this.name = new IngredientName("Default");
+        } else {
+            this.name = name;
+        }
+
+        if (defaultState == null) {
+            this.defaultState = State.LIQUID;
+        } else {
+            this.defaultState = defaultState;
+        }
+
+        if (defaultTemperature == null) {
+            this.defaultTemperature = new Temperature(0, 0);
+        } else {
+            this.defaultTemperature = defaultTemperature;
+        }
     }
     public IngredientName getName(){
         return this.name;

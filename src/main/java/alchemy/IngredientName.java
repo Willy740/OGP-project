@@ -35,7 +35,7 @@ public class IngredientName {
     private List<String> symbols = List.of("'", "(", ")");
 
     private List<String> disallowedWords = List.of("with", "mixed");
-    private List<String> characteristics = List.of("Heated", "Cooled")
+    private List<String> characteristics = List.of("Heated", "Cooled");
     // constructor
 
     public IngredientName(String simpleName) {
@@ -74,7 +74,7 @@ public class IngredientName {
                         }
                     }
                     if (i != 0) {
-                        if (!allowed.contains(letter)) {
+                        if (!lowercase.contains(letter)) {
                             return false;
                         }
                     }
@@ -130,7 +130,7 @@ public class IngredientName {
     /**
      * RESTART FINISH
      */
-}
+
 
 //
 //public static final IngredientName WATER = new IngredientName(null, "Water");

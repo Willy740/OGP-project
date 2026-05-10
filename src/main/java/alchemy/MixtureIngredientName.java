@@ -44,7 +44,8 @@ public class MixtureIngredientName extends IngredientName {
     public String getFullName(Temperature temperature, Temperature defaultTemperature) {
         if (this.specialName != null) {
             return this.specialName + " (" + super.getFullName(temperature, defaultTemperature) + ")";
-        } else {
+        }
+        else {
             return super.getFullName(temperature, defaultTemperature);
         }
     }

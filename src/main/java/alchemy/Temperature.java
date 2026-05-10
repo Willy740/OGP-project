@@ -35,7 +35,9 @@ public class Temperature {
     }
 
     public void heat(long amount) {
-        if (amount <= 0) return; // negatief verwarmen = geen effect
+        if (amount <= 0) {
+            throw  new IllegalArgumentException("Amount must be positive");
+        }
 
         if (this.coldness > 0) {
             // eerst coldness wegwerken
@@ -53,8 +55,9 @@ public class Temperature {
     }
 
     public void cool(long amount) {
-        if (amount <= 0) return;
-
+        if (amount <= 0) {
+            throw  new IllegalArgumentException("Amount must be positive");
+        }
         if (this.hotness > 0) {
             // eerst hotness wegwerken
             if (amount <= this.hotness) {
