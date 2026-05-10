@@ -35,7 +35,7 @@ public class AlchemicIngredient{
     private Temperature temperature;
 
     /**
-     * a variabel referencing the quantity of an ingredient, set at construction and can never change
+     * a variabel referencing the quantity (spoons) of an ingredient, set at construction and can never change
      */
     private final long quantity;
 
@@ -44,6 +44,8 @@ public class AlchemicIngredient{
      *********************************************************/
 
     /**
+     * initialize a new alchemic ingredient with given type, state, temperature and quantity
+     *
      * @param type
      *        the ingredient type of this new ingredient
      * @param currentState
@@ -75,7 +77,7 @@ public class AlchemicIngredient{
      *         the given quantity is negatif
      *         | quantity < 0
      */
-    @raw
+    @Raw
     public AlchemicIngredient(IngredientType type, State currentState,
                               Temperature temperature, long quantity) {
         if (type == null)
@@ -100,6 +102,7 @@ public class AlchemicIngredient{
     /**
      * return the ingredient type of this ingredient
      */
+    @Basic @Raw @Immutable
     public IngredientType getType() {
         return this.type;
     }
