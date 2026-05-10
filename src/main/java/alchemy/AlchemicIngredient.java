@@ -20,7 +20,7 @@ import be.kuleuven.cs.som.annotate.*;
  */
 public class AlchemicIngredient{
     /**
-     * variable referencing the type of an ingredient, set at construction and can never change
+     * variable referencing the type of an ingredient, final
      */
     private final IngredientType type;
 
@@ -35,7 +35,7 @@ public class AlchemicIngredient{
     private Temperature temperature;
 
     /**
-     * a variabel referencing the quantity (spoons) of an ingredient, set at construction and can never change
+     * a variabel referencing the quantity (spoons) of an ingredient, final
      */
     private final long quantity;
 

@@ -4,14 +4,14 @@ import java.util.List;
 import be.kuleuven.cs.som.annotate.*;
 
 /**
- * a class representing a mixture alchemic ingredient.
+ * a class representing a mixture alchemic ingredient
  * a mixture ingredient is an alchemic ingredient whose type is a mixture,
- * composed of multiple component alchemic ingredients.
+ * composed of multiple component alchemic ingredients
  *
- * @invar   the type of this mixture alchemic ingredient must be a mixture ingredient type.
+ * @invar   the type of this mixture alchemic ingredient must be a mixture ingredient type
  *          | getType() instanceof MixtureIngredientType
  *
- * @note    all other invariants are inherited from AlchemicIngredient.
+ * @note    all other invariants are inherited from AlchemicIngredient
  *
  * @author  Joran Naessens
  * @author  Maxime Samyn
@@ -23,19 +23,19 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
 
     /**
      * initialize a new mixture alchemic ingredient with the given mixture type,
-     * temperature, quantity and current state.
+     * temperature, quantity and current state
      *
      * @param   type
-     *          the mixture ingredient type of this new mixture alchemic ingredient.
+     *          the mixture ingredient type of this new mixture alchemic ingredient
      * @param   temperature
-     *          the temperature of this new mixture alchemic ingredient.
+     *          the temperature of this new mixture alchemic ingredient
      * @param   quantity
-     *          the quantity of this new mixture alchemic ingredient, expressed in spoons.
+     *          the quantity of this new mixture alchemic ingredient, expressed in spoons
      * @param   currentState
-     *          the current state of this new mixture alchemic ingredient.
+     *          the current state of this new mixture alchemic ingredient
      *
      * @effect  the new mixture alchemic ingredient is initialized as an alchemic ingredient
-     *          with the given type, current state, temperature and quantity.
+     *          with the given type, current state, temperature and quantity
      *          | super(type, currentState, temperature, quantity)
      */
     @Raw
@@ -47,19 +47,19 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
      **********************************************************/
 
     /**
-     * return the full name of this mixture alchemic ingredient.
+     * return the full name of this mixture alchemic ingredient
      *
      * if the mixture type has a special name, it is prepended to the full name
      * of the superclass (which may contain a "Heated" or "Cooled" prefix)
-     * enclosed in parentheses.
-     * if no special name is set, the full name of the superclass is returned directly.
+     * enclosed in parentheses
+     * if no special name is set, the full name of the superclass is returned directly
      *
      * @return  if the mixture type has a special name:
-     *          the special name followed by the superclass full name in parentheses.
+     *          the special name followed by the superclass full name in parentheses
      *          | if (((MixtureIngredientType) getType()).getSpecialName() != null)
      *          | then result.equals(((MixtureIngredientType) getType()).getSpecialName()
      *          |          + " (" + super.getFullName() + ")")
-     * @return  otherwise, the full name of the superclass is returned.
+     * @return  otherwise, the full name of the superclass is returned
      *          | else result.equals(super.getFullName())
      */
     @Override
@@ -76,9 +76,9 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
      **********************************************************/
 
     /**
-     * return the special name of this mixture alchemic ingredient, or null if none is set.
+     * return the special name of this mixture alchemic ingredient, or null if none is set
      *
-     * @return  the special name as provided by the mixture ingredient type.
+     * @return  the special name as provided by the mixture ingredient type
      *          | result == ((MixtureIngredientType) getType()).getSpecialName()
      */
     public String getSpecialName(){
@@ -86,16 +86,16 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
     }
 
     /**
-     * set the special name of this mixture alchemic ingredient to the given name.
+     * set the special name of this mixture alchemic ingredient to the given name
      *
      * @param   specialName
-     *          the new special name, or null to clear it.
+     *          the new special name, or null to clear it
      *
-     * @effect  the special name of the mixture ingredient type is set.
+     * @effect  the special name of the mixture ingredient type is set
      *          | ((MixtureIngredientType) getType()).setSpecialName(specialName)
      *
      * @throws  IllegalArgumentException
-     *          the given special name is effective but empty.
+     *          the given special name is effective but empty
      *          | specialName != null && specialName.isEmpty()
      */
     public void setSpecialName(String specialName){
@@ -107,11 +107,11 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
      **********************************************************/
 
     /**
-     * return the total quantity of this mixture alchemic ingredient, expressed in spoons.
+     * return the total quantity of this mixture alchemic ingredient, expressed in spoons
      *
-     * the total quantity is the sum of the quantities of all component ingredients.
+     * the total quantity is the sum of the quantities of all component ingredients
      *
-     * @return  the sum of the quantities of all component ingredients.
+     * @return  the sum of the quantities of all component ingredients
      *          | result == (sum of ingredient.getQuantity()
      *          |             for each ingredient in
      *          |             ((MixtureIngredientType) getType()).getIngredientsAsList())
