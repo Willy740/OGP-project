@@ -14,10 +14,10 @@ public class CoolingBox extends Device{
         private long hotness = Temperature.getHotness();
         private long coldness = Temperature.getColdness();
         if (coldness == 0){
-            Temperature.cool(hotness + this.targetColdness)
+            Temperature.cool(hotness + this.targetColdness);
         }
         else{
-            Temperature.cool(this.targetColdness - coldness)
+            Temperature.cool(this.targetColdness - coldness);
         }
     }
 }
