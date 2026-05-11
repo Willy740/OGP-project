@@ -41,10 +41,6 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
     @Raw
     public MixtureAlchemicIngredient(MixtureIngredientType type, Temperature temperature, long quantity, State currentState) {
         super(type, currentState, temperature, quantity);
-    }
-    /**********************************************************
-     * fullName
-     **********************************************************/
 
     /**
      * return the full name of this mixture alchemic ingredient
@@ -70,10 +66,6 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
         }
         return mixtureType.getSpecialName() + "(" + super.getFullName() + ")";
     }
-
-    /**********************************************************
-     * specialName
-     **********************************************************/
 
     /**
      * return the special name of this mixture alchemic ingredient, or null if none is set
@@ -101,10 +93,6 @@ public class MixtureAlchemicIngredient extends AlchemicIngredient{
     public void setSpecialName(String specialName){
         ((MixtureIngredientType) getType()).setSpecialName(specialName);
     }
-
-    /**********************************************************
-     * quantity
-     **********************************************************/
 
     /**
      * return the total quantity of this mixture alchemic ingredient, expressed in spoons
