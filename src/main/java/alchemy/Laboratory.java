@@ -1,1 +1,3 @@
-package alchemy
+package alchemy;
+
+public class Laboratory{}

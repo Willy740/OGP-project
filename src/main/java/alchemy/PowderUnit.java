@@ -10,13 +10,7 @@ import be.kuleuven.cs.som.annotate.*;
  * @author  Maxime Samyn
  */
 public enum PowderUnit implements Unit{
-    PINCH(1.0/6),
-    SPOON(1),
-    SACHET(7),
-    BOX(42),
-    SACK(126),
-    CHEST(1260),
-    STOREROOM(6300);
+
 
     /**
      * variable registering the nominal value of this powder unit expressed in spoons
@@ -61,8 +55,5 @@ public enum PowderUnit implements Unit{
      * @return  State.POWDER
      *          | result == State.POWDER
      */
-    @Override
-    public State getState() {
-        return State.POWDER;
-    }
+
 }

@@ -121,15 +121,15 @@ public class MixtureIngredientType extends IngredientType{
      *
      * @note    this method is only accesible in this class
      */
-    private static State calculateDefaultState(List<AlchemicIngredient> ingredients) {
+    private static STATE calculateDefaultState(List<AlchemicIngredient> ingredients) {
         if ((ingredients.isEmpty()) || (ingredients == null)) {
-            return State.LIQUID;
+            return STATE.LIQUID;
         }
         long minDistance = Long.MAX_VALUE;
-        State result = State.LIQUID;
+        STATE result = STATE.LIQUID;
         for (AlchemicIngredient ingredient : ingredients) {
             long d = ingredient.getType().distanceToInterval();
-            if ((d < minDistance) || ((d == minDistance) && (ingredient.getType().getDefaultState() == State.LIQUID))) {
+            if ((d < minDistance) || ((d == minDistance) && (ingredient.getType().getDefaultState() == STATE.LIQUID))) {
                 minDistance = d;
                 result = ingredient.getType().getDefaultState();
             }
@@ -147,7 +147,7 @@ public class MixtureIngredientType extends IngredientType{
     public boolean isMixture(){
         return true;
     }
-µ
+
     /**
      * return the special name of this mixture ingredient type, or null if none is set
      *

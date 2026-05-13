@@ -30,10 +30,6 @@ public class Temperature {
      */
     private long coldness;
 
-    /**
-     * variable registering the maximum allowed value for hotness and coldness
-     */
-    private static long MAX = 10000;
 
     /**********************************************************
      * Constructor - total programming
@@ -74,8 +70,8 @@ public class Temperature {
             this.hotness = 0;
         }
         else {
-            this.coldness = min(max(coldness, 0), MAX);
-            this.hotness  = min(max(hotness,  0), MAX);
+            this.coldness = min(max(coldness, 0), this.getMax());
+            this.hotness  = min(max(hotness,  0), this.getMax());
         }
     }
 
@@ -115,11 +111,11 @@ public class Temperature {
             } else {
                 long rest = amount - this.coldness;
                 this.coldness = 0;
-                this.hotness = min(rest, MAX); // mag niet groter dan max
+                this.hotness = min(rest, getMax()); // mag niet groter dan max
             }
         } else {
             // hotness verhogen niet groter dan max
-            this.hotness = min(this.hotness + amount, MAX);
+            this.hotness = min(this.hotness + amount, getMax());
         }
     }
 
@@ -158,11 +154,11 @@ public class Temperature {
             } else {
                 long rest = amount - this.hotness;
                 this.hotness = 0;
-                this.coldness = min(rest, MAX);
+                this.coldness = min(rest, getMax());
             }
         } else {
             // coldness verhogen
-            this.coldness = min(this.coldness + amount, MAX);
+            this.coldness = min(this.coldness + amount, getMax());
         }
     }
 
@@ -197,7 +193,8 @@ public class Temperature {
      * return the maximum allowed value for hotness and coldness
      */
     @Basic @Immutable
-    public static long getMAX() {
-        return MAX;
+    public static long getMax() {
+        return 10000;
     }
+
 }
