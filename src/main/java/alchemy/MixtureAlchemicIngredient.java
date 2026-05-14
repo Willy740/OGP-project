@@ -1,18 +1,23 @@
 package Alchemy;
 
-public class MixtureAlchemicIngredient{
-    
-    
-    public String getFullName(){
-        
+public class MixtureAlchemicIngredient extends AlchemicIngredient{
+
+    /*************************************
+     *              NAME                 *
+     *************************************/
+
+    private IngredientName name = "";
+
+    public IngredientName getName(){
+        return this.name;
     }
-    
-    public String getSpecialName(){
-        
-    }
-    
-    public void setSpecialName(String specialName){
-    
-    }
-    
+
+    /*************************************
+     *               TYPE                *
+     *************************************/
+
+    private final MixtureIngredientType type;
+
+    public MixtureIngredientType getType() {return type;}
+
 }
