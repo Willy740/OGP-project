@@ -83,7 +83,7 @@ public class IngredientName {
      * - a single-word name must be at least 3 characters long
      * - in a multi-word name, each word must be at least 2 characters long
      * - no word may be a disallowed word ("with" or "mixed")
-     * - aach word must start with an uppercase letter
+     * - aach word must start with an uppercase letter or accepted symbol or accepted symbol
      * - all subsequent characters of each word must be lowercase letters
      *
      * @param   simpleName
@@ -104,9 +104,10 @@ public class IngredientName {
      *          | then for each word in simpleName.split(" "):
      *          |   if (word.length() < 2
      *          |        || disallowedWords.contains(word)
-     *          |        || !uppercase.contains(String.valueOf(word.charAt(0)))
+     *          |        || (!uppercase.contains(String.valueOf(word.charAt(0)))
+     *                          && !symbols.contains(String.valueOf(word.charAt(0))))
      *          |        || (exists i in 1..word.length()-1 :
-     *          |              !lowercase.contains(String.valueOf(word.charAt(i)))))
+     *          |              !lowercase.contains(String.valueOf(word.charAt(i)))
      *          |              && !symbols.contains(String.valueOf(word.charAt(i)))))
      *          |   then result == false
      */
@@ -132,7 +133,7 @@ public class IngredientName {
                 for (int i = 0; i < word.length(); i++) {
                     String letter = String.valueOf(word.charAt(i));
                     if (i == 0) {
-                        if (!uppercase.contains(letter)) {
+                        if (!uppercase.contains(letter)&& !symbols.contains(letter)) {
                             return false;
                         }
                     }
