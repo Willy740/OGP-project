@@ -105,17 +105,6 @@ public class IngredientType{
     }
 
     /**
-     * return the full name of this ingredient type at its default temperature
-     *
-     * @return  the full name of this ingredient type, computed by comparing the
-     *          default temperature with itself, so no "Heated" or "Cooled" prefix is added
-     *          | result.equals(getName().getFullName(getDefaultTemperature(), getDefaultTemperature()))
-     */
-    public String getFullName(){
-        return this.name.getFullName(this.defaultTemperature, this.defaultTemperature);
-    }
-
-    /**
      * return the default state of this ingredient type
      */
     @Basic @Raw
