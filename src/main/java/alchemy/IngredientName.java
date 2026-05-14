@@ -98,7 +98,8 @@ public class IngredientName {
      *          | then result == false
      * @return  false if any word in a multi-word name has fewer than 2 characters,
      *          is a disallowed word, does not start with an uppercase letter,
-     *          or contains non-lowercase letters after the first character
+     *          or contains characters after the first that are neither lowercase letters
+     *          nor accepted symbols
      *          | if (simpleName.split(" ").length >= 2)
      *          | then for each word in simpleName.split(" "):
      *          |   if (word.length() < 2
@@ -106,6 +107,7 @@ public class IngredientName {
      *          |        || !uppercase.contains(String.valueOf(word.charAt(0)))
      *          |        || (exists i in 1..word.length()-1 :
      *          |              !lowercase.contains(String.valueOf(word.charAt(i)))))
+     *          |              && !symbols.contains(String.valueOf(word.charAt(i)))))
      *          |   then result == false
      */
     public boolean isValidSimpleName(String simpleName) {
@@ -135,7 +137,7 @@ public class IngredientName {
                         }
                     }
                     if (i != 0) {
-                        if (!lowercase.contains(letter)) {
+                        if (!lowercase.contains(letter) && !symbols.contains(letter)) {
                             return false;
                         }
                     }
