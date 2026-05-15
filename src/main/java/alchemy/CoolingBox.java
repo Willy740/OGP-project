@@ -117,7 +117,7 @@ public class CoolingBox extends Device {
      *          | result != null
      */
     @Override
-    protected void operate() {
+    protected void executeOperation() {
         if (loadedContainers.isEmpty()) {
             return; // nothing to do
         }

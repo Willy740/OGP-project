@@ -27,11 +27,9 @@ public abstract class Device {
      * The laboratory this device is currently located in, or null if none.
      */
     private Laboratory laboratory = null;
-<<<<<<< HEAD
-=======
 
     public getLaboratory(){return this.laboratory;}
->>>>>>> 51cf3c1ac8c4ab32d990d70ea112cd0e592b2bd2
+
 
     /**
      * The list of ingredient containers that have been loaded into this device.
@@ -39,7 +37,7 @@ public abstract class Device {
     protected List<IngredientContainer> contents = new ArrayList<>();
 
     /**
-     * The result of the last execute() call, stored as a quantity in spoons.
+     * The result of the last executeOperation() call, stored as a quantity in spoons.
      * Null if no result is available yet.
      */
     protected AlchemicIngredient result = null;
@@ -132,11 +130,11 @@ public abstract class Device {
      *          this device is not located in a laboratory
      *          | !isInLaboratory()
      */
-    public void execute() {
+    public void executeOperation() {
         if (!isInLaboratory()) {
             throw new IllegalStateException("Device must be in a laboratory to be used.");
         }
-        executeImpl();
+        executeOperation();
     }
 
     /**

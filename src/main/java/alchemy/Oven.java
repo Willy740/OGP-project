@@ -131,7 +131,7 @@ public class Oven extends Device {
      *          | result != null
      */
     @Override
-    protected void operate() {
+    protected void executeOperation() {
         if (loadedContainers.isEmpty()) {
             return;
         }
