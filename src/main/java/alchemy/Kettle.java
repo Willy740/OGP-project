@@ -6,6 +6,7 @@ import java.util.Arrays;
 import static java.lang.Math.abs;
 import static java.lang.Math.round;
 
+import be.kuleuven.cs.som.annotate.*;
 
 /**
  * @author  Joran Naessens
@@ -16,12 +17,16 @@ import static java.lang.Math.round;
 public class Kettle extends Device{
 
     /**
-     * Constructor for the kettle, makes it so the amount of ingredient aren't limited.
+     * initialize a new kettle with no limit on the amount of ingredients it can hold
      *
+     * @effect initializes this kettle as a device with no ingredient limit
+     *         | super()
+     * @post the maximum ingredient amount is set to the maximum integer value
+     *       | new.getMaxIngredientAmount() == Integer.MAX_VALUE
      */
     public Kettle() {
         super();
-        maxIngredientAmount = 2147483647;
+        maxIngredientAmount = Integer.MAX_VALUE;
     }
 
     /**
@@ -235,7 +240,7 @@ public class Kettle extends Device{
      *          There are less than two different ingredients in this device
      *          | getIngredientList().size() < 2
      */
-    public void execute() throws IsDestroyedException,DeviceNotInLaboratoryException,NotEnoughIngredientLeftException {
+    public void executeOperation() throws IsDestroyedException,DeviceNotInLaboratoryException,NotEnoughIngredientLeftException {
         if (isDestroyed()) {
             throw new IsDestroyedException("Device is already destroyed");
         }

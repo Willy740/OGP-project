@@ -78,8 +78,7 @@ public class AlchemicIngredient{
      *         | quantity < 0
      */
     @Raw
-    public AlchemicIngredient(IngredientType type, State currentState,
-                              Temperature temperature, long quantity) {
+    public AlchemicIngredient(IngredientType type, long quantity, State currentState, Temperature temperature) {
         if (type == null)
             throw new IllegalArgumentException("Ingredient type cannot be null");
         if (currentState == null)

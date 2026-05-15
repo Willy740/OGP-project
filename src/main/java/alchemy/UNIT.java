@@ -19,13 +19,13 @@ public enum UNIT {
     BARREL(1260, STATE.LIQUID),
     STOREROOM(6300, STATE.LIQUID);
 
-    PINCH(1.0/6),
-    SPOON(6),
-    SACHET(42),
-    BOX(42),
-    SACK(126),
-    CHEST(1260),
-    STOREROOM(6300);
+    PINCH(1.0/6, STATE.POWDER),
+    SPOON(6, STATE.POWDER),
+    SACHET(42, STATE.POWDER),
+    BOX(42, STATE.POWDER),
+    SACK(126, STATE.POWDER),
+    CHEST(1260, STATE.POWDER),
+    STOREROOM(6300, STATE.POWDER);
 
     /**
      * variable registering the nominal value of this unit
@@ -64,7 +64,12 @@ public enum UNIT {
         return this.state;
     }
 
-
+    /**
+     * check whether this liquid unit is a valid unit for a container
+     *
+     * @return  true if and only if this unit is not DROP and not STOREROOM
+     *          | result == (this != DROP && this != STOREROOM)
+     */
     @Basic
     @Immutable
     public boolean isValidContainerUnit() {
@@ -72,11 +77,5 @@ public enum UNIT {
         return this != DROP && this != STOREROOM;
     }
 
-    /**
-     * check whether this liquid unit is a valid unit for a container
-     *
-     * @return  true if and only if this unit is not DROP and not STOREROOM
-     *          | result == (this != DROP && this != STOREROOM)
-     */
 
 }
