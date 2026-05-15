@@ -11,11 +11,36 @@ import java.util.List;
  */
 public class Device {
 
-    private Laboratory laboratory;
+     /*******************************************
+     *              LABORATORY                  *
+     *******************************************/
 
+    /**
+     * the laboratory the devices belongs to
+     */
+    private Laboratory laboratory = nill;
+
+    public getLaboratory(){return this.laboratory;}
+
+    /**
+     * links the given laboratory to the device
+     * @param laboratory
+     */
+    public linkLaboratory(Laboratory laboratory){
+        this.laboratory =  laboratory;
+    }
+
+    /*******************************************
+     *               CONTENTS                  *
+     *******************************************/
+
+    /**
+     * The contents stored in the Device
+     * Depending on which device there may be rules around maximum items
+     */
     private List<IngredientContainer> contents;
 
-    public List<IngredientContainer> getContents() {return contents;}
+    public List<IngredientContainer> getContents() {return this.contents;}
 
     /**
      * method that adds ingredients to the device
