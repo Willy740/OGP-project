@@ -18,7 +18,7 @@ public class Device {
     /**
      * the laboratory the devices belongs to
      */
-    private Laboratory laboratory = nill;
+    private Laboratory laboratory = null;
 
     public getLaboratory(){return this.laboratory;}
 
