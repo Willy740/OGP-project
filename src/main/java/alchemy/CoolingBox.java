@@ -89,14 +89,14 @@ public class CoolingBox extends Device {
      * @param   container
      *          the container holding the ingredient to add (non-null, non-empty)
      *
-     * @throws  IllegalStateException
+     * @throws  DeviceFullException
      *          this cooling box already contains an ingredient
      *          | !loadedContainers.isEmpty()
      */
     @Override
-    protected void addIngredient(IngredientContainer container) {
-        if (!loadedContainers.isEmpty()) {throw new DeviceFullException(this);}
-        loadedContainers.add(container);
+    public void addIngredient(IngredientContainer container) {
+        if (!contents.isEmpty()) {throw new DeviceFullException(this);}
+        contents.add(container);
     }
 
     /**********************************************************
@@ -116,14 +116,14 @@ public class CoolingBox extends Device {
      * @post    the result holds the (possibly cooled) ingredient
      *          | result != null
      */
-    @Override
-    protected void executeOperation() {
-        if (loadedContainers.isEmpty()) {
-            return; // nothing to do
+    @Override // MSS E Device.setResult(result) MAKEN
+    public void executeOperation() {
+        if (contents.isEmpty()) {
+            return;
         }
 
-        IngredientContainer container = loadedContainers.get(0);
-        AlchemicIngredient ingredient = container.getIngredient();
+        IngredientContainer container = contents.getFirst();
+        AlchemicIngredient ingredient = container.getContent();
         Temperature current = ingredient.getTemperature();
         Temperature target  = this.coolingTemperature;
         if (!isWarmerThan(current, target)) {
@@ -135,9 +135,10 @@ public class CoolingBox extends Device {
             Temperature newTemp = copyTemperature(current);
             if (diff > 0) {newTemp.cool(diff);}
             else if (diff < 0) {newTemp.heat(-diff);}
-            this.result = ingredient.withTemperature(newTemp);
+            ingredient.setTemperature(newTemp);
+            this.result = ingredient;
         }
-        loadedContainers.clear();
+        contents.clear();
     }
 
     /**
@@ -155,7 +156,7 @@ public class CoolingBox extends Device {
 
     /**
      * Convert a temperature to a single signed long value.
-     * Positive means hot, negative means cold.
+     * Positive = hot, negative = cold.
      *
      * @param   t   the temperature to convert
      * @return  hotness - coldness
@@ -167,6 +168,7 @@ public class CoolingBox extends Device {
 
     /**
      * Create a copy of the given temperature.
+     * (encapsulationnnn)
      *
      * @param   t   the temperature to copy
      * @return  a new Temperature with the same coldness and hotness

@@ -1,3 +1,11 @@
+import alchemy.*;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class IntegrationTests {
 
     @Test
@@ -14,7 +22,7 @@ class IntegrationTests {
         IngredientContainer result = cb.getResult();
 
         assertNotNull(result);
-        long net = result.getIngredient().getHotness() - result.getIngredient().getColdness();
+        long net = result.getContent().getTemperature().getHotness() - result.getContent().getTemperature().getColdness();
         assertTrue(net <= -30, "Moet gekoeld zijn tot ≤ -30, maar was: " + net);
     }
 
@@ -32,9 +40,9 @@ class IntegrationTests {
         IngredientContainer result = oven.getResult();
 
         assertNotNull(result);
-        long net = result.getIngredient().getHotness() - result.getIngredient().getColdness();
+        long net = result.getContent().getTemperature().getHotness() - result.getContent().getTemperature().getColdness();
         assertTrue(net >= 75 && net <= 85,
-                "Moet verwarmd zijn naar ±5 van 80, maar was: " + net);
+                "Moet verwarmd zijn naar +/-5 van 80, maar was: " + net);
     }
 
     @Test

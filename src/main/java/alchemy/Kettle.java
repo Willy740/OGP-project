@@ -2,6 +2,8 @@ package alchemy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.round;
@@ -16,6 +18,8 @@ import be.kuleuven.cs.som.annotate.*;
  */
 public class Kettle extends Device{
 
+    private List<AlchemicIngredient> ingredients = new List<AlchemicIngredient>();
+
     /**
      * initialize a new kettle with no limit on the amount of ingredients it can hold
      *
@@ -25,9 +29,9 @@ public class Kettle extends Device{
      *       | new.getMaxIngredientAmount() == Integer.MAX_VALUE
      */
     public Kettle() {
-        super();
-        maxIngredientAmount = Integer.MAX_VALUE;
     }
+
+    public int getMaxIngredientAmount(){return Integer.MAX_VALUE;}
 
     /**
      * Generates a new String name based on ingredients currently in ingredientList.
@@ -45,13 +49,13 @@ public class Kettle extends Device{
 
     private String mergeNames(){
         StringBuilder stringBuilder = new StringBuilder();
-        AlchemicIngredient firstIngredient = ingredientList.get(0);
+        AlchemicIngredient firstIngredient = ingredients.getFirst();
         stringBuilder.append(firstIngredient.getType().getSimpleName());
         stringBuilder.append(" mixed with ");
 
-        for (int i = 1; i < ingredientList.size(); i++){
+        for (int i = 1; i < ingredients.size(); i++){
             if (i> 1){stringBuilder.append(", ");}
-            AlchemicIngredient ingredient = ingredientList.get(i);
+            AlchemicIngredient ingredient = ingredients.get(i);
             stringBuilder.append(ingredient.getType().getSimpleName());
 
 
@@ -74,20 +78,18 @@ public class Kettle extends Device{
      *      | result =  closestIngr.getState()
      *
      */
-    private State getNewState() throws IsDestroyedException{
-        AlchemicIngredient closestIngredient = ingredientList.get(0);
-
+    private STATE getNewState() throws IsDestroyedException{
+//        AlchemicIngredient closestIngredient = EERSTE INGREDIENT
 
         long smallestDifference = calculateTempDifference(closestIngredient,20);
-        for (int i = 1; i < ingredientList.size(); i++){
-            long difference = calculateTempDifference(ingredientList.get(i),20);
+        for (int i = 1; i < ingredients.size(); i++){
+            long difference = calculateTempDifference(ingredients.get(i),20);
             if (difference < smallestDifference) {
                 smallestDifference = difference;
-                closestIngredient = ingredientList.get(i);
+                ingredients = Collections.singletonList(ingredients.get(i));
             }
-            if ((difference == smallestDifference)&& (ingredientList.get(i).getIngredientState() == State.LIQUID)){
-                smallestDifference = difference;
-                closestIngredient = ingredientList.get(i);
+            if ((difference == smallestDifference)&& (ingredients.get(i).getIngredientState() == STATE.LIQUID)){
+                closestIngredient = ingredients.get(i);
             }
         }
         return closestIngredient.getType().getState();
@@ -107,10 +109,10 @@ public class Kettle extends Device{
      */
     private float getTotalAmount() throws IsDestroyedException{
         float total = 0;
-        for (int i = 0; i < ingredientList.size(); i++){
-            AlchemicIngredient ingredient = ingredientList.get(i);
+        for (int i = 0; i < ingredients.size(); i++){
+            AlchemicIngredient ingredient = ingredients.get(i);
 
-            total = total + ingredient.getSpoons();
+            total = total + ingredient.getQuantity();
 
         }
 
@@ -132,11 +134,11 @@ public class Kettle extends Device{
      * @post the amount of spoons must be a valid amount.
      *      | AlchemicIngredient.isValidSpoonsAmount(result, newState)
      */
-    private float getNewRoundedAmount(State newState) throws IsDestroyedException{
+    private float getNewRoundedAmount(STATE newState) throws IsDestroyedException{
 
         float oldTotal = getTotalAmount();
 
-        float roundedTotal = AmountConversion.StateAmountConversion(oldTotal,newState);
+        float roundedTotal = //CONVERTIE
         return roundedTotal;
     }
 
@@ -153,8 +155,8 @@ public class Kettle extends Device{
      */
     private long getNewTemp() throws IsDestroyedException{
         long weightedTotal = 0;
-        for (AlchemicIngredient ingredient : ingredientList) {
-            weightedTotal += (long) (ingredient.getSpoons() * (ingredient.getHotness() - ingredient.getColdness()));
+        for (AlchemicIngredient ingredient : ingredients) {
+            weightedTotal += (long) (ingredient.getQuantity() * (ingredient.getTemperature().getHotness() - ingredient.getTemperature().getColdness()));
         }
         return (long) (weightedTotal/ getTotalAmount());
     }
@@ -167,14 +169,14 @@ public class Kettle extends Device{
      * @param temperature temperature must be a valid integer
      *      |   temperature != none
      * @return
-     */
+     */ // ZOU EIG IN TEMPERATURE MOETN ZIJN
     private long calculateTempDifference(AlchemicIngredient ingredient , int temperature) throws IsDestroyedException{
-        return abs(temperature - (ingredient.getHotness() - ingredient.getColdness()));
+        return abs(temperature - (ingredient.getTemperature().getHotness() - ingredient.getTemperature().getColdness()));
     }
 
     /**
      *Calculates the new standard temperatures based on the ingredient closest to hotness 20, the hottest ingredient will be chosen if 2 have the same difference.
-     * @return ArrayList containing Negative and Positive standard temperatures in that order
+     * @return ArrayList containing Negative and Positive standard temperatures
      */
 
     /**
@@ -194,21 +196,21 @@ public class Kettle extends Device{
      *
      */
     private ArrayList getNewStdTemp() throws IsDestroyedException{
-        AlchemicIngredient closestIngredient = ingredientList.get(0);
+        AlchemicIngredient closestIngredient = ingredients.get(0);
 
         long smallestDifference = calculateTempDifference(closestIngredient,20);
 
-        for (int i = 1; i < ingredientList.size(); i++){
-            long difference = calculateTempDifference(ingredientList.get(i),20);
+        for (int i = 1; i < ingredients.size(); i++){
+            long difference = calculateTempDifference(ingredients.get(i),20);
 
             if (difference < smallestDifference) {
                 smallestDifference = difference;
-                closestIngredient = ingredientList.get(i);
+                closestIngredient = ingredients.get(i);
             }
-            if ((difference == smallestDifference)&& (ingredientList.get(i).getHotness() > 0)){
+            if ((difference == smallestDifference)&& (ingredients.get(i).getTemperature().getHotness() > 0)){
 
                 smallestDifference = difference;
-                closestIngredient = ingredientList.get(i);
+                closestIngredient = ingredients.get(i);
             }
         }
         ArrayList<Long> longs = new ArrayList<>(Arrays.asList(closestIngredient.getType().getStdCoolness(), closestIngredient.getType().getStdHotness()));
@@ -247,11 +249,11 @@ public class Kettle extends Device{
         if (getLaboratory() == null){
             throw new DeviceNotInLaboratoryException("Kettle must be in a laboratory to be used");
         }
-        if (ingredientList.size() < 2){
+        if (ingredients.size() < 2){
             throw new NotEnoughIngredientLeftException("Kettle must contain at least 2 ingredients!");
         }
         String newName = mergeNames();
-        State newState = getNewState();
+        STATE newState = getNewState();
         ArrayList<Long> newStdTemp = getNewStdTemp();
         long newTemp = getNewTemp();
         float newAmount = getNewRoundedAmount(newState);
@@ -265,11 +267,18 @@ public class Kettle extends Device{
             newIngredient.cool(newTemp);
         }
 
-        for (AlchemicIngredient ingredient : ingredientList) {
+        for (AlchemicIngredient ingredient : ingredients) {
             ingredient.destroy();
         }
 
-        ingredientList = new ArrayList<>(Arrays.asList(newIngredient));
+        ingredients = new ArrayList<>(Arrays.asList(newIngredient));
     }
 
+    public List<AlchemicIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<AlchemicIngredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 }

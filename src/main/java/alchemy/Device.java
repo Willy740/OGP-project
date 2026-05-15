@@ -28,22 +28,18 @@ public abstract class Device {
      */
     private Laboratory laboratory = null;
 
-    public getLaboratory(){return this.laboratory;}
-
-
     /**
      * The list of ingredient containers that have been loaded into this device.
      */
     protected List<IngredientContainer> contents = new ArrayList<>();
 
     /**
-     * The result of the last executeOperation() call, stored as a quantity in spoons.
-     * Null if no result is available yet.
+     * The result of the last executeOperation() call
      */
     protected AlchemicIngredient result = null;
 
     /**********************************************************
-     * Laboratory — BIDIRECTIONAL
+     *              Laboratory — BIDIRECTIONAL
      **********************************************************/
 
     /**
@@ -78,14 +74,15 @@ public abstract class Device {
         return this.laboratory != null;
     }
 
+
     /**********************************************************
-     * Adding ingredients
+     *                   adding ingredients
      **********************************************************/
 
     /**
      * Add an ingredient from the given container to this device.
      *
-     * The container becomes empty after this operation and is permanently destroyed.
+     * The container becomes empty after this and is permanently destroyed.
      *
      * @param   container
      *          the ingredient container to add
@@ -101,49 +98,37 @@ public abstract class Device {
      *          | container == null || container.isEmpty()
      */
     public void addIngredient(IngredientContainer container) {
-        if (!isInLaboratory()) {
+        if (isInLaboratory()) {
             throw new IllegalStateException("Device must be in a laboratory to be used.");
         }
         if (container == null || container.isEmpty()) {
             throw new IllegalArgumentException("Container must not be null or empty.");
         }
-        addIngredientImpl(container);
+        this.contents.add(container);
         container.empty();
     }
 
-    /**
-     * Template method for subclasses to define how an ingredient is added.
-     *
-     * @param   container
-     *          a non-null, non-empty container (already validated)
-     */
-    protected void addIngredient(IngredientContainer container);
 
     /**********************************************************
-     * Executing the operation
+     *               executing the operation
      **********************************************************/
 
     /**
-     * Execute this device's specific alchemical operation on the loaded ingredients.
+     * Execute this device's alchemical operation on the present ingredients.
      *
      * @throws  IllegalStateException
      *          this device is not located in a laboratory
      *          | !isInLaboratory()
      */
     public void executeOperation() {
-        if (!isInLaboratory()) {
+        if (isInLaboratory()) {
             throw new IllegalStateException("Device must be in a laboratory to be used.");
         }
-        executeOperation();
     }
 
-    /**
-     * Template method for subclasses to implement the actual operation.
-     */
-    protected void operate();
 
     /**********************************************************
-     * Retrieving the result
+     *                       result
      **********************************************************/
 
     /**
@@ -163,7 +148,7 @@ public abstract class Device {
      *          | !isInLaboratory()
      */
     public IngredientContainer getResult() {
-        if (!isInLaboratory()) {
+        if (isInLaboratory()) {
             throw new IllegalStateException("Device must be in a laboratory to be used.");
         }
         if (this.result == null) {
@@ -188,13 +173,13 @@ public abstract class Device {
      */
     protected IngredientContainer buildResultContainer(AlchemicIngredient ingredient) {
         UNIT bestUnit = null;
-        double spoons = ingredient.getQuantityInSpoons();
+        double spoons = ingredient.getQuantity();
         STATE state = ingredient.getCurrentState();
 
         for (UNIT unit : UNIT.values()) {
             if (unit.getState() == state && unit.isValidContainerUnit()) {
-                if (unit.getNominalValue() <= spoons) {
-                    if (bestUnit == null || unit.getNominalValue() > bestUnit.getNominalValue()) {
+                if (unit.getSpoons() <= spoons) {
+                    if (bestUnit == null || unit.getSpoons() > bestUnit.getSpoons()) {
                         bestUnit = unit;
                     }
                 }
@@ -204,7 +189,7 @@ public abstract class Device {
         if (bestUnit == null) {
             for (UNIT unit : UNIT.values()) {
                 if (unit.getState() == state && unit.isValidContainerUnit()) {
-                    if (bestUnit == null || unit.getNominalValue() < bestUnit.getNominalValue()) {
+                    if (bestUnit == null || unit.getSpoons() < bestUnit.getSpoons()) {
                         bestUnit = unit;
                     }
                 }

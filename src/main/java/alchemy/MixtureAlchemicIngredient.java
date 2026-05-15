@@ -1,102 +1,110 @@
-package Alchemy;
+package alchemy;
 
 import be.kuleuven.cs.som.annotate.*;
 
 /**
- * a class representing a mixture of alchemic ingredients, extending AlchemicIngredient
- * a mixture can optionally have a special name assigned to it
+ * A subclass of AlchemicIngredient representing mixed ingredients
  *
- * @invar the mixture type of this mixture ingredient cannot be null
- *        | getMixtureType() != null
+ * A mixture ingredient is backed by a MixtureIngredientType and can carry
+ * a special name that is stored in that type.
  *
- * @author Joran Naessens
- * @author Maxime Samyn
+ * @invar   the type of this mixture ingredient is an instance of MixtureIngredientType
+ *          | getType() instanceof MixtureIngredientType
+ *
+ * @author  Joran Naessens
+ * @author  Maxime Samyn
  */
-public class MixtureAlchemicIngredient extends AlchemicIngredient{
+public class MixtureAlchemicIngredient extends AlchemicIngredient {
 
     /**********************************************************
-     * constructor
-     *********************************************************/
+     *                      constructor
+     **********************************************************/
 
     /**
-     * initialize a new mixture alchemic ingredient with a given mixture type,
-     * quantity, state and temperature
+     * Initialize a new mixture alchemic ingredient with the given mixture type,
+     * quantity, state and temperature.
      *
-     * @param type
-     *        the mixture ingredient type of this new mixture ingredient
-     * @param quantity
-     *        the quantity (in spoons) of this new mixture ingredient
-     * @param currentState
-     *        the state of this new mixture ingredient
-     * @param temperature
-     *        the temperature of this new mixture ingredient
+     * @param   type
+     *          the mixture ingredient type of this new mixture ingredient
+     * @param   quantity
+     *          the quantity (in spoons) of this new mixture ingredient
+     * @param   currentState
+     *          the state of this new mixture ingredient
+     * @param   temperature
+     *          the temperature of this new mixture ingredient
      *
-     * @effect initializes this mixture ingredient as an alchemic ingredient
-     *         with the given type, state, temperature and quantity
-     *         | super(type, currentState, temperature, quantity)
+     * @effect  initializes this mixture ingredient as an alchemic ingredient
+     *          with the given type, quantity, state and temperature
+     *          | super(type, quantity, currentState, temperature)
      */
     @Raw
-    @Raw
-    public MixtureAlchemicIngredient(MixtureIngredientType type, long quantity, State currentState, Temperature temperature) {
+    public MixtureAlchemicIngredient(MixtureIngredientType type, long quantity,
+                                     STATE currentState, Temperature temperature) {
         super(type, quantity, currentState, temperature);
     }
 
+    /**********************************************************
+     *                         name
+     **********************************************************/
+
     /**
-     * return the full name of this mixture ingredient based on its current
-     * temperature relative to its default temperature
+     * Return the full name of this mixture ingredient based on its current
+     * temperature relative to its default temperature.
      *
-     * @return the full name of this mixture ingredient
-     *         | result.equals(getMixtureType().getFullName(getTemperature(), getType().getDefaultTemperature()))
+     * If a special name has been assigned, the full name is the special name
+     * followed by the simple name (with any Heated/Cooled prefix) in parentheses.
+     * Otherwise the full name is formed the same way as for non-mixed ingredients.
+     *
+     * @return  the full name of this mixture ingredient
+     *          | result.equals(getMixtureType()
+     *          |       .getFullName(getTemperature(), getType().getDefaultTemperature()))
      */
     @Override
-    public String getFullName(){
-        return getMixturetype().getFullName(getTemperature(), getType().getDefaultTemperature());
+    public String getFullName() {
+        return getMixtureType().getFullName(getTemperature(), getType().getDefaultTemperature());
     }
 
     /**
-     * return the special name of this mixture ingredient, if one has been set
+     * Return the special name of this mixture ingredient, or null if none has been set.
      *
-     * @return the special name of this mixture ingredient
-     *         | result.equals(getMixtureType().getFullName(getTemperature(), getType().getDefaultTemperature()))
+     * @return  the special name of the mixture ingredient type of this ingredient
+     *          | result == getMixtureType().getSpecialName()
      */
-    public String getSpecialName(){
-        return getMixturetype().getFullName(getTemperature(), getType().getDefaultTemperature());
+    public String getSpecialName() {
+        return getMixtureType().getSpecialName();
     }
 
     /**
-     * set the special name of this mixture ingredient to the given name
+     * Set the special name of this mixture ingredient to the given name.
      *
-     * @param specialName
-     *        the new special name for this mixture ingredient
+     * The special name must follow all conditions imposed on the name of a non-mixed ingredient.
      *
-     * @post the special name of this mixture ingredient is set to the given name
-     *       | getMixtureType().getSpecialName().equals(specialName)
+     * @param   specialName
+     *          the new special name for this mixture ingredient, or null to clear it
      *
-     * @throws IllegalArgumentException
-     *         the given special name is null
-     *         | specialName == null
-     * @throws IllegalArgumentException
-     *         the given special name is empty
-     *         | specialName.isEmpty()
+     * @post    the special name of this mixture ingredient is set to the given name
+     *          | getMixtureType().getSpecialName().equals(specialName)
+     *
+     * @throws  IllegalArgumentException
+     *          the given special name is effective but empty
+     *          | specialName != null && specialName.isEmpty()
      */
-    public void setSpecialName(String specialName){
-        if (specialName == null)
-            throw new IllegalArgumentException("specialName is can't be null.");
-        if (specialName.isEmpty())
-            throw new IllegalArgumentException("specialName is can't be empty.");
+    public void setSpecialName(String specialName) {
         getMixtureType().setSpecialName(specialName);
     }
 
+    /**********************************************************
+     *                        type
+     **********************************************************/
 
     /**
-     * return the mixture ingredient type of this mixture ingredient
+     * Return the mixture ingredient type of this mixture ingredient.
      *
-     * @return the mixture ingredient type of this ingredient
-     *         | result == (MixtureIngredientType) getType()
+     * @return  the type of this ingredient cast to MixtureIngredientType
+     *          | result == (MixtureIngredientType) getType()
      */
     @Basic @Raw
-    public MixtureIngredientType getMixtureType(){
+    public MixtureIngredientType getMixtureType() {
         return (MixtureIngredientType) getType();
     }
-    
 }

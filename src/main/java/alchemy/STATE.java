@@ -1,7 +1,5 @@
 package alchemy;
 
-import be.kuleuven.cs.som.annotate.*;
-
 /**
  * an enumeration of the possible states of an alchemic ingredient.
  *

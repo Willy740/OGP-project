@@ -32,7 +32,7 @@ public class Temperature {
 
 
     /**********************************************************
-     * Constructor - total programming
+     *                  Constructor
      **********************************************************/
 
     /**
@@ -139,16 +139,12 @@ public class Temperature {
      *          | if (getHotness() == 0)
      *          | then new.getColdness() == min(getColdness() + amount, MAX)
      *
-     * @throws  IllegalArgumentException
-     *          the given amount is not strictly positive
-     *          | amount <= 0
      */
     public void cool(long amount) {
         if (amount <= 0) {
-            throw  new IllegalArgumentException("Amount must be positive");
+            return;
         }
         if (this.hotness > 0) {
-            // eerst hotness wegwerken
             if (amount <= this.hotness) {
                 this.hotness -= amount;
             } else {
@@ -157,7 +153,6 @@ public class Temperature {
                 this.coldness = min(rest, getMax());
             }
         } else {
-            // coldness verhogen
             this.coldness = min(this.coldness + amount, getMax());
         }
     }

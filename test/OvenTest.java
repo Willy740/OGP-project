@@ -1,4 +1,8 @@
-package test;
+import alchemy.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class OvenTests {
 
@@ -38,8 +42,8 @@ class OvenTests {
         IngredientContainer result = oven.getResult();
 
         assertNotNull(result);
-        AlchemicIngredient heated = result.getIngredient();
-        long netResult = heated.getHotness() - heated.getColdness();
+        AlchemicIngredient heated = result.getContent();
+        long netResult = heated.getTemperature().getHotness() - heated.getTemperature().getColdness();
         long netTarget = 100;
         assertTrue(Math.abs(netResult - netTarget) <= 5, "Verwarmd ingrediënt moet binnen ±5 van doel liggen, was: " + netResult);
     }
@@ -48,12 +52,12 @@ class OvenTests {
     void ingredientAlreadyHotStaysUnchanged() {
         AlchemicIngredient ing = Helpmethods.makeLiquidIngredient("Lava", 1);
         ing.heat(180);
-        long originalNet = ing.getHotness() - ing.getColdness();
+        long originalNet = ing.getTemperature().getHotness() - ing.getTemperature().getColdness();
         oven.addIngredient(Helpmethods.containerOf(ing));
         oven.executeOperation();
         IngredientContainer result = oven.getResult();
         assertNotNull(result);
-        assertEquals(originalNet, result.getIngredient().getHotness() - result.getIngredient().getColdness());
+        assertEquals(originalNet, result.getContent().getTemperature().getHotness() - result.getContent().getTemperature().getColdness());
     }
 
     @Test
@@ -76,6 +80,6 @@ class OvenTests {
     @Test
     void ovenWithoutLabThrows() {
         Oven standalone = new Oven(new Temperature(0, 100));
-        assertThrows(IllegalStateException.class, () -> standalone.executeOperation());
+        assertThrows(IllegalStateException.class, standalone::executeOperation);
     }
 }

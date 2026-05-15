@@ -1,6 +1,9 @@
-package test;
+import alchemy.*;
+import org.junit.jupiter.api.Test;
 
-// testing basics
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class IngredientContainerTests {
 
     @Test

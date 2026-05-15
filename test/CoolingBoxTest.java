@@ -1,4 +1,8 @@
-package test;
+import alchemy.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class CoolingBoxTests {
 
@@ -40,8 +44,8 @@ class CoolingBoxTests {
         IngredientContainer result = coolingBox.getResult();
 
         assertNotNull(result);
-        AlchemicIngredient cooled = result.getIngredient();
-        long netResult = cooled.getHotness() - cooled.getColdness();
+        AlchemicIngredient cooled = result.getContent();
+        long netResult = cooled.getTemperature().getHotness() - cooled.getTemperature().getColdness();
         long netTarget = 0 - 50;
         assertTrue(netResult <= netTarget, "Gekoeld ingrediënt moet kouder of gelijk aan doel zijn");
     }
@@ -50,7 +54,7 @@ class CoolingBoxTests {
     void ingredientAlreadyColdStaysUnchanged() {
         AlchemicIngredient ing = Helpmethods.makeLiquidIngredient("Ice", 1);
         ing.cool(80);
-        long originalNet = ing.getHotness() - ing.getColdness();
+        long originalNet = ing.getTemperature().getHotness() - ing.getTemperature().getColdness();
 
         IngredientContainer c = Helpmethods.containerOf(ing);
         coolingBox.addIngredient(c);
@@ -58,8 +62,8 @@ class CoolingBoxTests {
         IngredientContainer result = coolingBox.getResult();
 
         assertNotNull(result);
-        AlchemicIngredient unchanged = result.getIngredient();
-        long resultNet = unchanged.getHotness() - unchanged.getColdness();
+        AlchemicIngredient unchanged = result.getContent();
+        long resultNet = unchanged.getTemperature().getHotness() - unchanged.getTemperature().getColdness();
         assertEquals(originalNet, resultNet);
     }
 

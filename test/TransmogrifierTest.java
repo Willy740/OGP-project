@@ -1,4 +1,8 @@
-package test;
+import alchemy.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class TransmogrifierTests {
 
@@ -30,7 +34,7 @@ class TransmogrifierTests {
         transmogrifier.executeOperation();
         IngredientContainer result = transmogrifier.getResult();
         assertNotNull(result);
-        assertEquals(State.POWDER, result.getIngredient().getCurrentState());
+        assertEquals(STATE.POWDER, result.getContent().getCurrentState());
     }
 
     @Test
@@ -40,7 +44,7 @@ class TransmogrifierTests {
         transmogrifier.executeOperation();
         IngredientContainer result = transmogrifier.getResult();
         assertNotNull(result);
-        assertEquals(State.LIQUID, result.getIngredient().getCurrentState());
+        assertEquals(STATE.LIQUID, result.getContent().getCurrentState());
     }
 
     @Test
@@ -50,7 +54,7 @@ class TransmogrifierTests {
         transmogrifier.addIngredient(Helpmethods.containerOf(liquid));
         transmogrifier.executeOperation();
         IngredientContainer result = transmogrifier.getResult();
-        assertEquals(originalType, result.getIngredient().getType());
+        assertEquals(originalType, result.getContent().getType());
     }
 
     @Test
@@ -68,6 +72,6 @@ class TransmogrifierTests {
         transmogrifier.executeOperation();
         IngredientContainer result = transmogrifier.getResult();
         assertNotNull(result);
-        assertEquals(State.POWDER, result.getIngredient().getCurrentState());
+        assertEquals(STATE.POWDER, result.getContent().getCurrentState());
     }
 }

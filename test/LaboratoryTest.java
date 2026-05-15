@@ -1,4 +1,10 @@
-package test;
+import alchemy.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class LaboratoryTest{
 
@@ -104,7 +110,7 @@ class LaboratoryTest{
         lab.store(Helpmethods.containerOf(Helpmethods.makeLiquidIngredient("Water", 3)));
         lab.store(Helpmethods.containerOf(Helpmethods.makeLiquidIngredient("Water", 3)));
         IngredientContainer retrieved = lab.retrieve("Water");
-        assertTrue(retrieved.getIngredient().getSpoons() > 3);
+        assertTrue(retrieved.getContent().getQuantity() > 3);
     }
 
     @Test

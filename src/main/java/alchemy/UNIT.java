@@ -17,7 +17,7 @@ public enum UNIT {
     BOTTLE(15, STATE.LIQUID),
     JUG(105, STATE.LIQUID),
     BARREL(1260, STATE.LIQUID),
-    STOREROOM(6300, STATE.LIQUID);
+    STOREROOM(6300, STATE.LIQUID),
 
     PINCH(1.0/6, STATE.POWDER),
     SPOON(1, STATE.POWDER),
@@ -30,7 +30,7 @@ public enum UNIT {
     /**
      * variable registering the nominal value of this unit
      */
-    private final double nominalValue;
+    private final double spoons;
 
     /**
      * variable keeping track of the state the unit is expressed in
@@ -40,8 +40,8 @@ public enum UNIT {
     /**
      * initialize a new unit with the given nominal value and state
      *
-     * @param   nominalValue
-     *          the nominal value of this unit expressed in spoons
+     * @param   spoons
+     *          the value of this unit expressed in spoons
      *
      * @param   state
      *          the state the unit is in
@@ -49,16 +49,13 @@ public enum UNIT {
      * @post    the nominal value of this unit is set to the given value
      *          | new.getNominalValue() == nominalValue
      */
-    UNIT(double nominalValue, STATE state) {
-        this.nominalValue = nominalValue;
+    UNIT(double spoons, STATE state) {
+        this.spoons = spoons;
         this.state = state;
     }
-
-
-    public double getNominalValue() {
-        return this.nominalValue;
+    public double getSpoons() {
+        return this.spoons;
     }
-
 
     public STATE getState() {
         return this.state;

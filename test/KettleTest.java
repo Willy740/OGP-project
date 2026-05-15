@@ -1,4 +1,8 @@
-package test;
+import alchemy.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class KettleTests {
 
@@ -45,7 +49,7 @@ class KettleTests {
         kettle.addIngredient(Helpmethods.containerOf(Helpmethods.makeLiquidIngredient("Oil", 3)));
         kettle.executeOperation();
         IngredientContainer result = kettle.getResult();
-        String name = result.getIngredient().getSimpleName();
+        String name = result.getContent().getSimpleName();
         assertTrue(name.contains("mixed with"), "Naam moet 'mixed with' bevatten maar was: " + name);
     }
 
@@ -57,7 +61,7 @@ class KettleTests {
         kettle.addIngredient(Helpmethods.containerOf(o));
         kettle.executeOperation();
         IngredientContainer result = kettle.getResult();
-        assertTrue(result.getIngredient().getSpoons() > 0);
+        assertTrue(result.getContent().getQuantity() > 0);
     }
 
     @Test

@@ -6,9 +6,8 @@ import java.util.Random;
 /**
  * A device that heats a single alchemic ingredient to a configurable target temperature.
  *
- * Rules:
  * @invar can hold only one ingredient at a time.
- * @throws adding a second ingredient while one is already loaded throws an InvalidDeviceContents exception.
+ * @throws DeviceFullException a second ingredient while one is already loaded throws an InvalidDeviceContents exception.
  * @? The resulting temperature may deviate by up to 5 units from the target.
  * @? Ingredients already hotter than (or equal to) the target temperature are left unchanged.
  * @invar   the oven temperature of this oven must be valid
@@ -102,12 +101,12 @@ public class Oven extends Device {
      *
      * @throws  IllegalStateException
      *          this oven already contains an ingredient
-     *          | !loadedContainers.isEmpty()
+     *          | !contents.isEmpty()
      */
     @Override
-    protected void addIngredient(IngredientContainer container) {
-        if (!loadedContainers.isEmpty()) {throw new DeviceFullException(this);}
-        loadedContainers.add(container);
+    public void addIngredient(IngredientContainer container) {
+        if (!contents.isEmpty()) {throw new DeviceFullException(this);}
+        contents.add(container);
     }
 
     /**********************************************************
@@ -131,13 +130,13 @@ public class Oven extends Device {
      *          | result != null
      */
     @Override
-    protected void executeOperation() {
-        if (loadedContainers.isEmpty()) {
+    public void executeOperation() {
+        if (contents.isEmpty()) {
             return;
         }
 
-        IngredientContainer container = loadedContainers.get(0);
-        AlchemicIngredient ingredient = container.getIngredient();
+        IngredientContainer container = contents.getFirst();
+        AlchemicIngredient ingredient = container.getContent();
 
         Temperature current = ingredient.getTemperature();
         Temperature target  = this.ovenTemperature;
@@ -162,11 +161,10 @@ public class Oven extends Device {
             } else {
                 newTemp = new Temperature(-netAdjusted, 0);
             }
-
-            this.result = ingredient.withTemperature(newTemp);
+            ingredient.setTemperature(newTemp);
+            this.result = ingredient;
         }
-
-        loadedContainers.clear();
+        contents.clear();
     }
 
     /**

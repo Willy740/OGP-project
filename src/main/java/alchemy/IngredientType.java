@@ -26,12 +26,12 @@ public class IngredientType{
     /**
      * variable referencing the default state of this ingredient type
      */
-    private State defaultState;
+    private final STATE defaultState;
 
     /**
      * variable referencing the default temperature of this ingredient type
      */
-    private Temperature defaultTemperature;
+    private final Temperature defaultTemperature;
 
     /**********************************************************
      * constructor
@@ -66,7 +66,7 @@ public class IngredientType{
      *          | else new.getDefaultTemperature().getColdness() == 0
      *          |   && new.getDefaultTemperature().getHotness()  == 0
      */
-    public IngredientType(IngredientName name, State defaultState, Temperature defaultTemperature) {
+    public IngredientType(IngredientName name, STATE defaultState, Temperature defaultTemperature) {
         if (name == null) {
             this.name = new IngredientName("Default");
         } else {
@@ -74,7 +74,7 @@ public class IngredientType{
         }
 
         if (defaultState == null) {
-            this.defaultState = State.LIQUID;
+            this.defaultState = STATE.LIQUID;
         } else {
             this.defaultState = defaultState;
         }
@@ -104,11 +104,14 @@ public class IngredientType{
         return this.name.getSimpleName();
     }
 
+//    [WIP]
+//    public String getFullName(){ return this.name.getFullName();}
+
     /**
      * return the default state of this ingredient type
      */
     @Basic @Raw
-    public State getDefaultState(){
+    public STATE getDefaultState(){
         return this.defaultState;
     }
 
@@ -147,7 +150,6 @@ public class IngredientType{
         if ((defaulttemp <= 20) && (defaulttemp >= 0)){
             return 0;
         }
-        long distance = min(defaulttemp - 20, defaulttemp);
-        return distance;
+        return min(defaulttemp - 20, defaulttemp);
     }
 }
