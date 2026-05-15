@@ -1,7 +1,7 @@
 package alchemy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import be.kuleuven.cs.som.annotate.*;
 
@@ -13,7 +13,7 @@ class Transmogrifier extends Device {
     @Override
     public void executeOperation() {
         if (isDestroyed()) {
-            throw new IsDestroyedException("Device is already destroyed")
+            throw new IsDestroyedException("Device is already destroyed");
         }
 
         if (getLaboratory() == null) {
@@ -57,10 +57,13 @@ class Transmogrifier extends Device {
 
 
         }
-        contents = convertedContents
+        contents = convertedContents;
     }
 
         private long convertQuantity ( long spoonsQuantity, State newState){
+            if (newState == null) {
+                throw new IllegalArgumentException("newState can't be null");
+            }
             UNIT smallestUnit = null;
             double smallestNominal = Double.MAX_VALUE;
             for (UNIT unit : UNIT.values()) {
@@ -79,6 +82,10 @@ class Transmogrifier extends Device {
         }
 
     private UNIT getContainerUnit(long spoonsQuantity, State state) {
+        if (state == null) {
+            throw new IllegalArgumentException("state cannot be null");
+        }
+
         UNIT bestUnit = null;
         double bestNominal = 0;
         for (UNIT unit : UNIT.values()) {
@@ -100,6 +107,10 @@ class Transmogrifier extends Device {
                     bestUnit = unit;
                 }
             }
+        }
+
+        if (bestUnit == null) {
+            throw new IllegalArgumentException("no valid container units found for state: " + state);
         }
         return bestUnit;
     }
